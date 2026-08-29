@@ -5,18 +5,19 @@
   type it, or just point at the picture that matches.
 */
 
-.input__intro { margin-bottom: 4px; }
+.input__intro { margin-bottom: var(--s3); }
 
 .input__hint {
-  font-size: 1rem;
+  max-width: var(--measure);
+  font-size: 1.0625rem;
   color: var(--ink-600);
 }
 
-.input__form > * + * { margin-top: 12px; }
+.input__form > * + * { margin-top: var(--s4); }
 
 .input__textarea {
   resize: none;
-  min-height: 7rem;
+  min-height: 8rem;
 }
 
 /*
@@ -26,7 +27,7 @@
 .input__picker {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: var(--s3);
 }
 
 @media (min-width: 40rem) {
@@ -36,8 +37,8 @@
 .input__pick {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px;
+  gap: var(--s3);
+  padding: var(--s4);
   border: 2px solid var(--ink-200);
   border-radius: var(--radius);
   background: var(--white);

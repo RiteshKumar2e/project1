@@ -9,8 +9,8 @@
 .assess__call {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px;
+  gap: var(--s5);
+  padding: var(--s6);
   border: 2px solid var(--alert-800);
   border-radius: var(--radius);
   background: var(--alert-600);
@@ -29,7 +29,7 @@
 
 .assess__call-note {
   display: block;
-  margin-top: 4px;
+  margin-top: var(--s2);
   font-size: 0.875rem;
 }
 
@@ -37,14 +37,14 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: var(--s4);
+  margin-bottom: var(--s5);
 }
 
 .assess__ident {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--s4);
 }
 
 .assess__icon {
@@ -65,7 +65,7 @@
 }
 
 .assess__echo {
-  margin-top: 12px;
+  margin-top: var(--s5);
   font-size: 0.9375rem;
   color: var(--ink-600);
 }
@@ -74,7 +74,7 @@
 
 .assess__actions {
   display: grid;
-  gap: 12px;
+  gap: var(--s4);
 }
 
 @media (min-width: 40rem) {
@@ -83,12 +83,12 @@
 
 .assess__empty {
   max-width: var(--narrow);
-  margin: 48px auto;
-  padding: 0 16px;
+  margin: var(--s7) auto;
+  padding: 0 var(--s4);
   text-align: center;
 }
 
 .assess__empty p {
-  margin: 8px 0 20px;
+  margin: var(--s3) 0 var(--s5);
   color: var(--ink-600);
 }

@@ -6,17 +6,17 @@
 */
 
 .about__lead {
-  margin-top: 8px;
-  font-size: 1.0625rem;
+  margin-top: var(--s4);
+  font-size: 1.125rem;
   color: var(--ink-600);
-  max-width: 40rem;
+  max-width: var(--measure);
 }
 
 /* The five stages, as a numbered strip rather than five identical cards */
 .about__flow {
   display: grid;
-  gap: 8px;
-  margin-top: 16px;
+  gap: var(--s3);
+  margin-top: var(--s5);
   counter-reset: stage;
 }
 
@@ -26,8 +26,8 @@
 
 .about__stage {
   display: flex;
-  gap: 10px;
-  padding: 12px;
+  gap: var(--s3);
+  padding: var(--s4);
   border: var(--rule);
   border-radius: var(--radius);
   background: var(--paper);
@@ -60,28 +60,29 @@
 .about__panel-title {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: var(--s2);
+  margin-bottom: var(--s2);
   font-size: 1.0625rem;
 }
 
 .about__section h2 {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: var(--s3);
+  margin-bottom: var(--s4);
 }
 
 .about__section p {
-  font-size: 0.9375rem;
+  max-width: var(--measure);
+  font-size: 1rem;
   color: var(--ink-700);
 }
 
 .about__sources {
   display: grid;
-  gap: 6px;
-  margin-top: 12px;
-  padding-top: 12px;
+  gap: var(--s2);
+  margin-top: var(--s4);
+  padding-top: var(--s4);
   border-top: var(--rule);
   font-size: 0.9375rem;
   color: var(--ink-600);
@@ -89,7 +90,7 @@
 
 .about__sources li {
   display: flex;
-  gap: 8px;
+  gap: var(--s2);
 }
 
 .about__sources li::before {
