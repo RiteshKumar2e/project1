@@ -1,97 +1,76 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { fetchNearbyFacilities } from '../services/api';
 import FacilityCard from '../components/FacilityCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import SafetyDisclaimer from '../components/SafetyDisclaimer';
-import { Phone, RefreshCw } from 'lucide-react';
+import { Phone, RefreshCw, MapPin, AlertTriangle } from 'lucide-react';
 import '../styles/HealthcareFinderPage.css';
 
-/*
-  Shown when location is unavailable or the API is down. These are clearly
-  labelled as examples so nobody drives to an address that does not exist.
-*/
-const SAMPLE_FACILITIES = [
-  {
-    id: 'fb_1',
-    name: 'District Government Hospital',
-    nameHi: 'जिला सरकारी अस्पताल',
-    latitude: 23.265, longitude: 77.415,
-    address: 'Civil Lines, District HQ',
-    phone: '0755-2540108',
-    emergency: true,
-    distance: 3.4,
-    estimatedTime: { text: '10-15 min', textHi: '10-15 मिनट' }
-  },
-  {
-    id: 'fb_2',
-    name: 'Community Health Centre (CHC)',
-    nameHi: 'सामुदायिक स्वास्थ्य केंद्र (CHC)',
-    latitude: 23.25, longitude: 77.4,
-    address: 'Main Road, Block Area',
-    phone: '0755-2550100',
-    emergency: true,
-    distance: 6.8,
-    estimatedTime: { text: '15-25 min', textHi: '15-25 मिनट' }
-  },
-  {
-    id: 'fb_3',
-    name: 'Primary Health Centre (PHC)',
-    nameHi: 'प्राथमिक स्वास्थ्य केंद्र (PHC)',
-    latitude: 23.27, longitude: 77.42,
-    address: 'Village Sector 4',
-    phone: '0755-2560200',
-    emergency: false,
-    distance: 9.2,
-    estimatedTime: { text: '20-30 min', textHi: '20-30 मिनट' }
-  },
-  {
-    id: 'fb_4',
-    name: 'Red Cross First Aid Clinic',
-    nameHi: 'रेड क्रॉस प्राथमिक चिकित्सा क्लिनिक',
-    latitude: 23.28, longitude: 77.43,
-    address: 'Station Road',
-    phone: '0755-2570300',
-    emergency: false,
-    distance: 14.5,
-    estimatedTime: { text: '30-45 min', textHi: '30-45 मिनट' }
-  }
-];
+const RADII = [5000, 15000, 30000, 50000];
 
+/*
+  Every facility on this screen comes from OpenStreetMap, positioned against
+  the device's real location. There is deliberately no sample list: sending
+  someone to a hospital that does not exist, or that is 300km away, is worse
+  than telling them plainly that we could not look it up.
+*/
 export default function HealthcareFinderPage() {
   const { language } = useLanguage();
   const { requestLocation } = useGeolocation();
   const hi = language === 'hi';
 
   const [facilities, setFacilities] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [usingSamples, setUsingSamples] = useState(false);
-  const [selectedRadius, setSelectedRadius] = useState(15000);
+  const [radius, setRadius] = useState(15000);
+  const [status, setStatus] = useState('locating');
+  const [problem, setProblem] = useState(null);
 
-  const handleFindFacilities = async (radius = selectedRadius) => {
-    setLoading(true);
-    try {
-      const coords = await requestLocation();
-      if (coords) {
-        const res = await fetchNearbyFacilities(coords.latitude, coords.longitude, radius);
-        if (res?.success && res.facilities?.length > 0) {
-          setFacilities(res.facilities);
-          setUsingSamples(false);
-          return;
-        }
-      }
-      setFacilities(SAMPLE_FACILITIES);
-      setUsingSamples(true);
-    } catch {
-      setFacilities(SAMPLE_FACILITIES);
-      setUsingSamples(true);
-    } finally {
-      setLoading(false);
+  const search = useCallback(async (searchRadius) => {
+    setStatus('locating');
+    setProblem(null);
+
+    const coords = await requestLocation();
+    if (!coords) {
+      setProblem({
+        title: hi ? 'आपकी जगह नहीं मिल पाई' : 'Could not find your location',
+        body: hi
+          ? 'ब्राउज़र में लोकेशन की अनुमति दें, फिर दोबारा कोशिश करें। तब तक 112 पर एम्बुलेंस बुला सकते हैं।'
+          : 'Allow location access in your browser, then try again. You can call 112 for an ambulance meanwhile.'
+      });
+      setStatus('error');
+      return;
     }
+
+    setStatus('searching');
+    try {
+      const res = await fetchNearbyFacilities(coords.latitude, coords.longitude, searchRadius);
+      const found = res?.facilities || [];
+      setFacilities(found);
+      setStatus(found.length ? 'ready' : 'empty');
+    } catch (err) {
+      setProblem({
+        title: hi ? 'अस्पताल खोजे नहीं जा सके' : 'Could not search for hospitals',
+        body: err.code === 'TIMEOUT'
+          ? (hi
+              ? 'नक्शा सेवा बहुत धीमी है। दोबारा कोशिश करें, या सीधे 112 पर कॉल करें।'
+              : 'The map service is being slow. Try again, or call 112 directly.')
+          : (hi
+              ? 'नक्शा सेवा से संपर्क नहीं हो पाया। एम्बुलेंस के लिए 112 पर कॉल करें।'
+              : 'Could not reach the map service. Call 112 for an ambulance.')
+      });
+      setStatus('error');
+    }
+  }, [requestLocation, hi]);
+
+  useEffect(() => { search(radius); }, []);
+
+  const changeRadius = (r) => {
+    setRadius(r);
+    search(r);
   };
 
-  useEffect(() => { handleFindFacilities(); }, []);
+  const busy = status === 'locating' || status === 'searching';
 
   return (
     <div className="page page--wide stack">
@@ -101,13 +80,13 @@ export default function HealthcareFinderPage() {
             <h1>{hi ? 'नज़दीकी अस्पताल' : 'Nearby hospitals'}</h1>
             <p className="finder__sub">
               {hi
-                ? 'सरकारी अस्पताल, सामुदायिक स्वास्थ्य केंद्र (CHC) और प्राथमिक स्वास्थ्य केंद्र (PHC)'
-                : 'Government hospitals, Community Health Centres (CHC) and Primary Health Centres (PHC)'}
+                ? 'आपकी मौजूदा जगह के हिसाब से सरकारी अस्पताल, सामुदायिक स्वास्थ्य केंद्र (CHC) और प्राथमिक स्वास्थ्य केंद्र (PHC)।'
+                : 'Government hospitals, Community Health Centres (CHC) and Primary Health Centres (PHC), from your current location.'}
             </p>
           </div>
 
-          <button className="finder__refresh" onClick={() => handleFindFacilities()} disabled={loading}>
-            <RefreshCw size={18} className={loading ? 'is-spinning' : ''} />
+          <button className="finder__refresh" onClick={() => search(radius)} disabled={busy}>
+            <RefreshCw size={18} className={busy ? 'is-spinning' : ''} />
             {hi ? 'फिर से खोजें' : 'Search again'}
           </button>
         </div>
@@ -115,12 +94,13 @@ export default function HealthcareFinderPage() {
         {/* In a village the nearest real hospital can be 40km away */}
         <div className="finder__radius">
           <span className="finder__radius-label">{hi ? 'कितनी दूर तक:' : 'Search within:'}</span>
-          {[5000, 15000, 30000, 50000].map((r) => (
+          {RADII.map((r) => (
             <button
               key={r}
               className="finder__chip"
-              aria-pressed={selectedRadius === r}
-              onClick={() => { setSelectedRadius(r); handleFindFacilities(r); }}
+              aria-pressed={radius === r}
+              disabled={busy}
+              onClick={() => changeRadius(r)}
             >
               {r / 1000} km
             </button>
@@ -128,26 +108,61 @@ export default function HealthcareFinderPage() {
         </div>
       </div>
 
-      {loading ? (
-        <LoadingSpinner message={hi ? 'आस-पास देख रहे हैं...' : 'Looking around you...'} />
-      ) : (
+      {status === 'locating' && (
+        <LoadingSpinner message={hi ? 'आपकी जगह पता कर रहे हैं...' : 'Finding your location...'} />
+      )}
+
+      {status === 'searching' && (
+        <LoadingSpinner
+          message={hi ? 'आस-पास के अस्पताल खोज रहे हैं...' : 'Searching for hospitals near you...'}
+        />
+      )}
+
+      {status === 'ready' && (
         <section>
           <div className="finder__count">
-            <h2>{hi ? `${facilities.length} जगह मिलीं` : `${facilities.length} places found`}</h2>
-            {usingSamples && (
-              <span className="finder__count-note">
-                {hi ? 'नमूना सूची — लोकेशन नहीं मिली' : 'Sample list — location unavailable'}
-              </span>
-            )}
+            <h2>
+              {hi
+                ? `${facilities.length} जगह मिलीं — ${radius / 1000} किमी के अंदर`
+                : `${facilities.length} found within ${radius / 1000} km`}
+            </h2>
+            <span className="finder__count-note">
+              {hi ? 'आपातकालीन अस्पताल सबसे ऊपर' : 'Emergency hospitals listed first'}
+            </span>
           </div>
 
           <div className="finder__grid">
-            {facilities.map((fac) => <FacilityCard key={fac.id} facility={fac} />)}
+            {facilities.map((facility) => (
+              <FacilityCard key={facility.id} facility={facility} />
+            ))}
           </div>
         </section>
       )}
 
-      {/* For when the nearest facility is simply too far to reach in time */}
+      {status === 'empty' && (
+        <div className="finder__blank">
+          <MapPin size={28} />
+          <h2>{hi ? `${radius / 1000} किमी में कुछ नहीं मिला` : `Nothing found within ${radius / 1000} km`}</h2>
+          <p>
+            {hi
+              ? 'दायरा बढ़ाकर देखें। गाँव में सबसे नज़दीकी अस्पताल 40 किमी दूर भी हो सकता है।'
+              : 'Try a wider radius. In rural areas the nearest hospital can be 40km away.'}
+          </p>
+        </div>
+      )}
+
+      {status === 'error' && problem && (
+        <div className="finder__blank finder__blank--error">
+          <AlertTriangle size={28} />
+          <h2>{problem.title}</h2>
+          <p>{problem.body}</p>
+          <button className="btn btn--outline finder__retry" onClick={() => search(radius)}>
+            {hi ? 'दोबारा कोशिश करें' : 'Try again'}
+          </button>
+        </div>
+      )}
+
+      {/* Always reachable, whatever the search did */}
       <div className="finder__ambulance">
         <div>
           <h3>{hi ? 'अस्पताल दूर है?' : 'Hospital too far?'}</h3>

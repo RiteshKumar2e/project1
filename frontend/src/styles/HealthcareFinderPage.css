@@ -134,3 +134,46 @@
 }
 
 .finder__ambulance-call svg { fill: currentColor; }
+
+/*
+  Shown instead of results. There is no sample list to fall back on, so these
+  states have to carry their weight: say what happened, offer the one action
+  that helps, and never imply a hospital was found when none was.
+*/
+.finder__blank {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s8) var(--s5);
+  border: 2px dashed var(--ink-300);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.finder__blank svg { color: var(--ink-400); }
+
+.finder__blank p {
+  max-width: 36rem;
+  color: var(--ink-600);
+}
+
+.finder__blank--error {
+  border-style: solid;
+  border-color: var(--alert-600);
+  background: var(--alert-50);
+}
+
+.finder__blank--error svg { color: var(--alert-600); }
+.finder__blank--error p { color: var(--alert-900); }
+
+.finder__retry {
+  width: auto;
+  margin-top: var(--s2);
+}
+
+.finder__chip[disabled],
+.finder__refresh[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
