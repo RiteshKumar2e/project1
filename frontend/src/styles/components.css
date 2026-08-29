@@ -236,11 +236,12 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  width: 100%;
 }
 
 .site-header__bar {
@@ -248,13 +249,10 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--s4);
+  width: 100%;
   max-width: var(--wide);
   margin: 0 auto;
-  padding: var(--s3) var(--s4);
-}
-
-@media (min-width: 40rem) {
-  .site-header__bar { padding: var(--s3) var(--s5); }
+  padding: var(--s3) var(--s5);
 }
 
 .site-header__brand {
@@ -303,6 +301,7 @@
   .site-header__tag { display: none; }
 }
 
+/* Top-Right aligned container for Call 112 & Language Switcher */
 .site-header__right {
   display: flex;
   align-items: center;
@@ -334,6 +333,7 @@
 
 .lang-switch {
   display: flex;
+  align-items: center;
   border: 1.5px solid var(--ink-300);
   border-radius: 20px;
   overflow: hidden;
@@ -343,13 +343,14 @@
 }
 
 .lang-switch button {
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 16px;
   background: transparent;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 800;
   color: var(--ink-600);
   transition: all 0.15s ease;
+  cursor: pointer;
 }
 
 .lang-switch button:hover { color: var(--ink-900); }
