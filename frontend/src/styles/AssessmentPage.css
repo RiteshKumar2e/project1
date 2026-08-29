@@ -1,0 +1,94 @@
+/*
+  AssessmentPage.css
+
+  Critical cases lead with the phone call, above everything else. Reading
+  the steps is the second-best outcome; getting an ambulance moving is the
+  first, so the call sits at the top of the page and nothing competes.
+*/
+
+.assess__call {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid var(--alert-800);
+  border-radius: var(--radius);
+  background: var(--alert-600);
+  color: var(--white);
+}
+
+.assess__call:hover { background: var(--alert-700); }
+.assess__call svg { fill: var(--white); flex-shrink: 0; }
+
+.assess__call-label {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.assess__call-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.875rem;
+}
+
+.assess__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.assess__ident {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.assess__icon {
+  font-size: 2.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.assess__kicker {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+
+.assess__name {
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.assess__echo {
+  margin-top: 12px;
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.assess__echo strong { color: var(--ink-800); }
+
+.assess__actions {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 40rem) {
+  .assess__actions { grid-template-columns: 1fr 1fr; }
+}
+
+.assess__empty {
+  max-width: var(--narrow);
+  margin: 48px auto;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.assess__empty p {
+  margin: 8px 0 20px;
+  color: var(--ink-600);
+}

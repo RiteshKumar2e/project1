@@ -1,0 +1,102 @@
+/*
+  AboutPage.css
+
+  The page that has to be honest: what this app does, what it does not do,
+  what happens to your words, and where the medical advice came from.
+*/
+
+.about__lead {
+  margin-top: 8px;
+  font-size: 1.0625rem;
+  color: var(--ink-600);
+  max-width: 40rem;
+}
+
+/* The five stages, as a numbered strip rather than five identical cards */
+.about__flow {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  counter-reset: stage;
+}
+
+@media (min-width: 48rem) {
+  .about__flow { grid-template-columns: repeat(5, 1fr); }
+}
+
+.about__stage {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border: var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper);
+  counter-increment: stage;
+}
+
+@media (min-width: 48rem) {
+  .about__stage { flex-direction: column; gap: 6px; }
+}
+
+.about__stage::before {
+  content: counter(stage);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--ink-900);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.about__stage p {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.about__panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 1.0625rem;
+}
+
+.about__section h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.about__section p {
+  font-size: 0.9375rem;
+  color: var(--ink-700);
+}
+
+.about__sources {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: var(--rule);
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.about__sources li {
+  display: flex;
+  gap: 8px;
+}
+
+.about__sources li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.55em;
+  background: var(--ink-400);
+}

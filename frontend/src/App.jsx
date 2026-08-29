@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import Header from './components/Header';
 import OfflineIndicator from './components/OfflineIndicator';
@@ -17,15 +17,11 @@ export default function App() {
   const isOnline = useOnlineStatus();
 
   return (
-    <div className="min-h-screen flex flex-col bg-surface-50 text-surface-800 font-sans selection:bg-emergency-200">
-      {/* Top Fixed Header */}
+    <div className="app">
       <Header />
-
-      {/* Real-time offline notice */}
       <OfflineIndicator isOnline={isOnline} />
 
-      {/* Main Page Content */}
-      <main className="flex-1 pb-16">
+      <main className="app__main">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/emergency-input" element={<EmergencyInputPage />} />
@@ -39,15 +35,13 @@ export default function App() {
         </Routes>
       </main>
 
-      {/* Bottom Minimal Footer */}
-      <footer className="border-t border-surface-200 bg-white py-6 text-center text-xs text-surface-500">
-        <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div>
-            🚑 <strong className="text-surface-700">Rural Emergency Assistance Platform</strong> — Designed for high reliability in remote areas.
-          </div>
-          <div className="font-semibold text-surface-600">
-            Emergency Toll-Free: <a href="tel:112" className="text-emergency-600 hover:underline">112</a>
-          </div>
+      <footer className="site-footer">
+        <div className="site-footer__inner">
+          <span>
+            Rural Emergency Assistance &middot;{' '}
+            <Link to="/about">About &amp; safety</Link>
+          </span>
+          <a href="tel:112" className="site-footer__call">Emergency: 112</a>
         </div>
       </footer>
     </div>
