@@ -1,0 +1,59 @@
+/*
+  EmergencyInputPage.css
+
+  Three ways in, in order of how easy they are under stress: speak it,
+  type it, or just point at the picture that matches.
+*/
+
+.input__intro { margin-bottom: 4px; }
+
+.input__hint {
+  font-size: 1rem;
+  color: var(--ink-600);
+}
+
+.input__form > * + * { margin-top: 12px; }
+
+.input__textarea {
+  resize: none;
+  min-height: 7rem;
+}
+
+/*
+  Escape hatch: naming what is wrong is hard when you are panicking, so any
+  category can be tapped directly instead of described.
+*/
+.input__picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 40rem) {
+  .input__picker { grid-template-columns: repeat(3, 1fr); }
+}
+
+.input__pick {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 2px solid var(--ink-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  text-align: left;
+}
+
+.input__pick:hover { border-color: var(--ink-900); }
+
+.input__pick-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.input__pick-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.2;
+}

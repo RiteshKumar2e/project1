@@ -1,0 +1,134 @@
+/*
+  HealthcareFinderPage.css
+
+  Distance decides where someone goes, so distance is the loudest thing on
+  each result. The radius control matters more here than anywhere else: in
+  a village the nearest real hospital can be 40km away.
+*/
+
+.finder__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.finder__sub {
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.finder__refresh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 2px solid var(--ink-300);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.finder__refresh:hover { border-color: var(--ink-900); }
+.finder__refresh svg.is-spinning { animation: spin 0.9s linear infinite; }
+
+.finder__radius {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: var(--rule);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.finder__radius::-webkit-scrollbar { display: none; }
+
+.finder__radius-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink-600);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.finder__chip {
+  padding: 8px 14px;
+  border: 2px solid var(--ink-300);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.finder__chip:hover { border-color: var(--ink-900); }
+
+.finder__chip[aria-pressed="true"] {
+  background: var(--ink-900);
+  border-color: var(--ink-900);
+  color: var(--white);
+}
+
+.finder__count {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.finder__count-note {
+  font-size: 0.875rem;
+  color: var(--ink-500);
+}
+
+.finder__grid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 44rem) {
+  .finder__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* For when the nearest facility is simply too far to reach in time */
+.finder__ambulance {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid var(--alert-800);
+  border-radius: var(--radius);
+  background: var(--alert-600);
+  color: var(--white);
+}
+
+.finder__ambulance h3 { font-size: 1.25rem; }
+
+.finder__ambulance p {
+  margin-top: 2px;
+  font-size: 0.9375rem;
+}
+
+.finder__ambulance-call {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--alert-700);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.finder__ambulance-call svg { fill: currentColor; }

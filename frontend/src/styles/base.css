@@ -1,0 +1,233 @@
+/*
+  base.css — tokens, reset and typography.
+
+  Design brief: this app is opened during a medical emergency, in a village,
+  on a low-cost Android phone, often outdoors in bright sun, sometimes by
+  someone who reads slowly. Everything below follows from that: flat fills
+  instead of gradients, rules instead of shadows, large type, big targets,
+  and colour pairs that all clear 4.5:1 contrast.
+*/
+
+/* ─── Tokens ──────────────────────────────────────── */
+:root {
+  /* Alert red — deeper than a stock red so white text survives sunlight */
+  --alert-50:  #fdf3f2;
+  --alert-100: #fadfdd;
+  --alert-200: #f3bdb9;
+  --alert-500: #c0322b;
+  --alert-600: #a81f19;
+  --alert-700: #8b1611;
+  --alert-800: #6d100c;
+  --alert-900: #4d0a07;
+
+  /* Urgent — brown-orange; stock orange fails contrast on white */
+  --warn-50:  #fdf5ec;
+  --warn-100: #f9e5cb;
+  --warn-600: #94570a;
+  --warn-800: #573207;
+  --warn-900: #3d2305;
+
+  /* Safe — the deep green of Indian health signage */
+  --go-50:  #eef6f0;
+  --go-100: #d3e8d9;
+  --go-600: #1f6340;
+  --go-700: #184e33;
+  --go-800: #123c27;
+
+  /* Warm paper neutrals — less glare than cool grey, reads as printed matter */
+  --paper:   #f7f4ef;
+  --ink-100: #efeae1;
+  --ink-200: #ddd6c9;
+  --ink-300: #c3baa9;
+  --ink-400: #948b7c;
+  --ink-500: #6f675b;
+  --ink-600: #544e45;
+  --ink-700: #3d3831;
+  --ink-800: #2a2621;
+  --ink-900: #1a1714;
+
+  /* Wayfinding navy — directions and maps, never used for alerts */
+  --nav-600: #14487a;
+  --nav-500: #2c6ea8;
+
+  --white: #ffffff;
+
+  --radius: 4px;
+  --rule: 1px solid var(--ink-200);
+  --rule-strong: 2px solid var(--ink-900);
+
+  /* 56px: WCAG asks 44, but this is tapped one-handed by a shaking hand */
+  --tap: 56px;
+
+  --wide: 64rem;
+  --mid: 44rem;
+  --narrow: 34rem;
+}
+
+/* ─── Reset ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* 17px base — the single biggest readability win for older users */
+  font-size: 106.25%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Noto Sans', 'Noto Sans Devanagari', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink-900);
+  line-height: 1.55;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Devanagari sits lower in the box and needs more room than Latin */
+:lang(hi) {
+  line-height: 1.75;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ─── Typography ──────────────────────────────────── */
+h1, h2, h3, h4 {
+  line-height: 1.25;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.0625rem; }
+
+@media (min-width: 40rem) {
+  h1 { font-size: 2rem; }
+}
+
+/* ─── Layout ──────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.app__main { flex: 1; }
+
+.page {
+  width: 100%;
+  max-width: var(--mid);
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.page--wide { max-width: var(--wide); }
+.page--narrow { max-width: var(--narrow); }
+
+/* Vertical rhythm without a margin on every child */
+.stack > * + * {
+  margin-top: 20px;
+}
+
+/*
+  Section heading with a rule running to the right edge. Replaces the
+  floating pill badge that sat above every heading.
+*/
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--ink-200);
+}
+
+/* ─── Motion ──────────────────────────────────────── */
+/*
+  One animation in the whole app, and it is functional: a slow ring on the
+  single most important control on screen. Deliberately no scale — a button
+  that grows under a shaking finger is harder to hit, not easier.
+*/
+@keyframes alert-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(168, 31, 25, 0.45); }
+  50%      { box-shadow: 0 0 0 10px rgba(168, 31, 25, 0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.is-pulsing {
+  animation: alert-ring 2.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Accessibility ───────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--nav-600);
+  outline-offset: 2px;
+}
+
+/* ─── Scrollbar ───────────────────────────────────── */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink-100); }
+::-webkit-scrollbar-thumb { background: var(--ink-300); }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-400); }
+
+/* ─── Print ───────────────────────────────────────── */
+/* First-aid steps get printed and pinned up in health centres */
+@media print {
+  body { background: var(--white); }
+  .no-print { display: none !important; }
+}

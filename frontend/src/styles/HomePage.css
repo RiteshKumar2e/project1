@@ -1,0 +1,134 @@
+/*
+  HomePage.css
+
+  There is no hero and no tagline here on purpose. Someone opening this app
+  has an emergency in front of them, so the first thing on screen is the
+  first thing to do.
+*/
+
+.home__ask {
+  margin-bottom: 16px;
+  font-size: 1.75rem;
+}
+
+@media (min-width: 40rem) {
+  .home__ask { font-size: 2rem; }
+}
+
+/* Call and Find-hospital sit side by side once there is room for both */
+.home__shortcuts {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (min-width: 40rem) {
+  .home__shortcuts { grid-template-columns: 1fr 1fr; }
+}
+
+/*
+  A direct route to the steps, skipping the description entirely when the
+  problem is already obvious to the person holding the phone.
+*/
+.home__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 40rem) {
+  .home__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.home__tile {
+  padding: 16px 12px;
+  border: 2px solid var(--ink-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  text-align: center;
+}
+
+.home__tile:hover { border-color: var(--ink-900); }
+
+.home__tile-icon {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.home__tile-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.home__tile-steps {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8125rem;
+  color: var(--ink-500);
+}
+
+.home__all {
+  display: block;
+  margin-top: 12px;
+  padding: 14px;
+  border: 2px solid var(--ink-300);
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-align: center;
+}
+
+.home__all:hover { background: var(--white); }
+
+/*
+  Look switcher, sitting above the fold. Pushed to the right and kept small
+  so that the first thing reading down the left edge is still the heading
+  and the emergency action, not a preference control.
+*/
+.home__themebar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 44px, not the 56px the emergency controls get: this one is never urgent */
+.home__theme {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 2px solid var(--ink-300);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.home__theme:hover { border-color: var(--ink-900); }
+
+/* The chip previews the look you would be switching to, not the current one */
+.home__theme-swatch {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #000;
+  border-radius: 0;
+  background: linear-gradient(135deg, #ffd60a 50%, #22d3ee 50%);
+  box-shadow: 2px 2px 0 #000;
+  flex-shrink: 0;
+}
+
+/* Demo is a reviewer's tool, not a villager's - kept last and kept quiet */
+.home__demo-toggle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-500);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.home__demo-toggle:hover { color: var(--ink-900); }
+.home__demo-panel { margin-top: 12px; }
