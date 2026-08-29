@@ -124,4 +124,126 @@ function analyzeWithKeywords(userInput) {
   };
 }
 
-module.exports = { analyzeWithAI, analyzeWithKeywords };
+const CHAT_SYSTEM_PROMPT = `You are Rural Health & First-Aid Assistant AI, a helpful, compassionate emergency guidance chatbot for rural India.
+Your mission is to provide clear, actionable, life-saving first aid instructions and safety guidance.
+
+Guidelines:
+1. Keep your answers concise, structured (numbered steps or bullet points), and very easy to read on a mobile phone screen.
+2. In critical situations (chest pain, severe bleeding, snake bite, stroke, choking, unconsciousness), ALWAYS advise calling 112 emergency services right away.
+3. Support both English and Hindi (हिन्दी) seamlessly. If the user writes in Hindi or Hinglish, answer clearly with simple Devanagari or English text as appropriate.
+4. Never prescribe drugs/antibiotics or diagnose specific diseases. Give standard WHO/Red Cross first aid steps.
+5. Emphasize what to DO and what NOT to do.`;
+
+/**
+ * Multi-turn conversational chat with Gemini API or intelligent local fallback
+ */
+async function chatWithAI(messages = [], userLocation = null) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  const lastUserMsg = messages[messages.length - 1]?.text || '';
+
+  if (!apiKey || apiKey === 'your_gemini_api_key_here') {
+    return chatFallback(lastUserMsg);
+  }
+
+  try {
+    const formattedContents = [
+      {
+        role: 'user',
+        parts: [{ text: CHAT_SYSTEM_PROMPT }]
+      },
+      {
+        role: 'model',
+        parts: [{ text: "Understood. I am ready to provide immediate, clear first-aid and emergency assistance." }]
+      }
+    ];
+
+    messages.forEach(msg => {
+      formattedContents.push({
+        role: msg.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.text }]
+      });
+    });
+
+    const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: formattedContents,
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 600
+        }
+      }),
+      signal: AbortSignal.timeout(10000)
+    });
+
+    if (!response.ok) {
+      console.error(`[AI Chat] API error: ${response.status}`);
+      return chatFallback(lastUserMsg);
+    }
+
+    const data = await response.json();
+    const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!replyText) {
+      return chatFallback(lastUserMsg);
+    }
+
+    // Check matching category for quick action links
+    const matchedCategory = searchByKeywords(lastUserMsg);
+
+    return {
+      text: replyText,
+      category: matchedCategory?.id || null,
+      source: 'gemini-2.0-flash'
+    };
+
+  } catch (error) {
+    console.error('[AI Chat] Error:', error.message);
+    return chatFallback(lastUserMsg);
+  }
+}
+
+/**
+ * Intelligent Chat Fallback using Knowledge Base
+ */
+function chatFallback(userInput) {
+  const matchedCategory = searchByKeywords(userInput);
+  if (matchedCategory && matchedCategory.id !== 'other_emergency') {
+    const stepsText = matchedCategory.firstAidSteps
+      .map(s => `${s.step}. ${s.instruction} (${s.instructionHi})`)
+      .join('\n');
+    const warningsText = matchedCategory.warnings.join(' • ');
+
+    const text = `🚨 **${matchedCategory.name} / ${matchedCategory.nameHi}**\n\n` +
+      `**Immediate Steps / ज़रूरी कदम:**\n${stepsText}\n\n` +
+      `⚠️ **Important Warnings:** ${warningsText}\n\n` +
+      `📞 Emergency Services: **Call 112** immediately if severe!`;
+
+    return {
+      text,
+      category: matchedCategory.id,
+      source: 'knowledge_base'
+    };
+  }
+
+  // Generic helpful fallback
+  const isHindi = /[\u0900-\u097F]/.test(userInput) || /kya|kaise|kaha|madad|batao|karo/i.test(userInput);
+
+  if (isHindi) {
+    return {
+      text: `स्वास्थ्य और प्राथमिक चिकित्सा सहायक में आपका स्वागत है! 🏥\n\nआप मुझसे किसी भी आपातकालीन स्थिति के बारे में पूछ सकते हैं, जैसे:\n- "सांप काटने पर क्या करें?"\n- "सीने में दर्द प्राथमिक उपचार"\n- "खून बहना कैसे रोकें"\n\nगंभीर स्थिति में तुरंत **112** पर कॉल करें।`,
+      category: null,
+      source: 'knowledge_base'
+    };
+  }
+
+  return {
+    text: `Hello! I am your Rural First-Aid & Emergency Assistant. 🏥\n\nYou can ask me about any first-aid situation or emergency, such as:\n- "What to do for a snake bite?"\n- "First aid for severe bleeding"\n- "CPR steps for unconscious person"\n- "How to care for burns"\n\nFor critical life-threatening situations, call **112** immediately!`,
+    category: null,
+    source: 'knowledge_base'
+  };
+}
+
+module.exports = { analyzeWithAI, analyzeWithKeywords, chatWithAI, chatFallback };
+

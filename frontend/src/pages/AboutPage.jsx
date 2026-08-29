@@ -19,11 +19,11 @@ export default function AboutPage() {
   return (
     <div className="page stack">
       <div>
-        <h1>{hi ? 'इस ऐप के बारे में' : 'About this app'}</h1>
+        <h1>{hi ? 'स्वास्थ्‍यसेतु के बारे में' : 'About SwasthyaSetu'}</h1>
         <p className="about__lead">
           {hi
-            ? 'गाँव और दूरदराज के इलाकों में एम्बुलेंस आने तक क्या करना है — यही बताने के लिए यह ऐप बना है।'
-            : 'What to do while help is on its way, for villages and remote areas where the ambulance takes time.'}
+            ? 'स्वास्थ्‍यसेतु - गाँव और दूरदराज के इलाकों में एम्बुलेंस आने तक प्राथमिक जीवन-रक्षक मार्गदर्शन देने के लिए बनाया गया है।'
+            : 'SwasthyaSetu is built to provide life-saving first-aid guidance in rural and remote areas while professional emergency medical help is on its way.'}
         </p>
       </div>
 
