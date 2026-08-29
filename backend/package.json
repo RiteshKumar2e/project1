@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "check:videos": "node scripts/checkVideoLinks.js"
+    "check:videos": "node scripts/checkVideoLinks.js",
+    "sync:videos": "node scripts/syncVideosToFrontend.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
