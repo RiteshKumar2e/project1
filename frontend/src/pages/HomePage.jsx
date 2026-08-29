@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
 import EmergencyButton from '../components/EmergencyButton';
 import DemoModeBanner from '../components/DemoModeBanner';
 import SafetyDisclaimer from '../components/SafetyDisclaimer';
 import { getAllOfflineCategories } from '../data/offlineFirstAid';
-import { Phone, Navigation, Stethoscope } from 'lucide-react';
+import { Phone, Navigation, Stethoscope, Palette } from 'lucide-react';
 import '../styles/HomePage.css';
 
 export default function HomePage() {
   const { language } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [showDemo, setShowDemo] = useState(false);
 
@@ -18,6 +20,19 @@ export default function HomePage() {
 
   return (
     <div className="page stack">
+      {/* Two looks for the same app; the choice is remembered per device. */}
+      <div className="home__themebar no-print">
+        <button className="home__theme" onClick={toggleTheme}>
+          <Palette size={18} />
+          <span>
+            {theme === 'brutal'
+              ? (hi ? 'सादा रूप' : 'Plain look')
+              : (hi ? 'चटख रूप' : 'Bold look')}
+          </span>
+          <span className="home__theme-swatch" aria-hidden="true" />
+        </button>
+      </div>
+
       <section>
         <h1 className="home__ask">{hi ? 'किसी को मदद चाहिए?' : 'Someone needs help?'}</h1>
 
