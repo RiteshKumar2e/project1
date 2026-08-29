@@ -9,18 +9,11 @@ const { applySafetyRules, getSeverityInfo } = require('../services/safetyEngine'
 const { getCategoryById, getAllCategories } = require('../data/knowledgeBase');
 const { getVideosByCategory } = require('../data/emergencyVideos');
 
-// In-memory session tracking (used when MongoDB is unavailable)
-const inMemorySessions = [];
+const EmergencySession = require('../models/EmergencySession');
+const { isDBConnected } = require('../models/db');
 
-async function getSessionModel() {
-  try {
-    const mongoose = require('mongoose');
-    if (mongoose.connection.readyState === 1) {
-      return require('../models/EmergencySession');
-    }
-  } catch (e) { /* MongoDB not available */ }
-  return null;
-}
+// In-memory session tracking fallback (used when DB is unavailable)
+const inMemorySessions = [];
 
 /**
  * POST /api/emergency/analyze
@@ -67,9 +60,8 @@ async function analyzeEmergency(req, res) {
 
     // Step 6: Track session (anonymous)
     try {
-      const SessionModel = await getSessionModel();
-      if (SessionModel) {
-        await SessionModel.create({
+      if (isDBConnected()) {
+        await EmergencySession.create({
           category: category.id,
           severity: safeResult.severity,
           source: safeResult.source,
@@ -86,6 +78,13 @@ async function analyzeEmergency(req, res) {
       }
     } catch (dbError) {
       console.error('[DB] Session tracking error:', dbError.message);
+      inMemorySessions.push({
+        category: category.id,
+        severity: safeResult.severity,
+        source: safeResult.source,
+        isDemo: isDemo || false,
+        timestamp: new Date()
+      });
     }
 
     // Step 7: Return structured response
@@ -180,7 +179,7 @@ function getCategoryDetails(req, res) {
 }
 
 /**
- * Get in-memory sessions for dashboard (when MongoDB unavailable)
+ * Get in-memory sessions for dashboard (when DB is unavailable)
  */
 function getInMemorySessions() {
   return inMemorySessions;

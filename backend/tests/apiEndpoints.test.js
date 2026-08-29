@@ -6,6 +6,8 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
+const { initDB, isDBConnected } = require('../models/db');
+const EmergencySession = require('../models/EmergencySession');
 const { analyzeEmergency, getCategories, getCategoryDetails } = require('../controllers/emergencyController');
 const { getDashboardStats } = require('../controllers/dashboardController');
 
@@ -85,3 +87,26 @@ test('API Controller — GET /api/dashboard/stats', async () => {
   assert.ok(typeof res.data.stats.totalSessions === 'number');
   assert.ok(res.data.stats.systemStatus);
 });
+
+test('SQLite DB — Initialize and persist sessions', async () => {
+  const initialized = await initDB();
+  assert.equal(initialized, true, 'SQLite DB must initialize and authenticate successfully');
+  assert.equal(isDBConnected(), true);
+
+  // Analyze emergency and verify it writes to SQLite
+  const { req, res } = createMockReqRes({ description: 'Snake bite emergency test', isDemo: false });
+  await analyzeEmergency(req, res);
+  assert.equal(res.statusCode, 200);
+
+  // Check that EmergencySession model has records
+  const session = await EmergencySession.findOne({ where: { category: 'snake_bite' } });
+  assert.ok(session, 'Emergency session should be saved in SQLite');
+  assert.equal(session.category, 'snake_bite');
+
+  // Verify dashboard stats reflects SQLite
+  const { req: dashReq, res: dashRes } = createMockReqRes();
+  await getDashboardStats(dashReq, dashRes);
+  assert.equal(dashRes.statusCode, 200);
+  assert.equal(dashRes.data.stats.systemStatus.database, 'sqlite');
+});
+

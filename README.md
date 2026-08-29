@@ -86,7 +86,7 @@ rural-emergency-assistance/
 │   ├── routes/                 # Express API routes
 │   ├── services/               # Gemini AI service & Safety rules engine
 │   ├── data/                   # Curated first-aid knowledge base & videos
-│   ├── models/                 # Mongoose schema for anonymous session tracking
+│   ├── models/                 # Sequelize/SQLite schema for anonymous session tracking
 │   ├── middleware/             # Rate limiter & Error handler
 │   ├── server.js
 │   └── package.json

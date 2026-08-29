@@ -68,8 +68,10 @@ export default function DashboardPage() {
     {
       icon: Database,
       name: t('dashboard.database'),
-      value: status.database === 'mongo' ? 'MongoDB' : (hi ? 'मेमोरी में' : 'In-memory'),
-      idle: status.database !== 'mongo'
+      value: (status.database === 'sqlite' || status.database === 'connected')
+        ? (hi ? 'SQLite (स्थानीय डेटाबेस)' : 'SQLite (Local DB)')
+        : (hi ? 'मेमोरी में' : 'In-memory'),
+      idle: status.database !== 'sqlite' && status.database !== 'connected'
     },
     {
       icon: ShieldCheck,

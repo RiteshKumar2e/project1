@@ -1,35 +1,47 @@
-const mongoose = require('mongoose');
+/**
+ * EmergencySession Model (Sequelize / SQLite)
+ * 
+ * Stores anonymous emergency session telemetry for aggregate statistics.
+ * NOTE: Patient descriptions or personal identifying data are NOT stored.
+ */
 
-const emergencySessionSchema = new mongoose.Schema({
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('./db');
+
+const EmergencySession = sequelize.define('EmergencySession', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   category: {
-    type: String,
-    required: true,
-    index: true
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   severity: {
-    type: String,
-    enum: ['critical', 'urgent', 'less_urgent'],
-    required: true
+    type: DataTypes.ENUM('critical', 'urgent', 'less_urgent'),
+    allowNull: false,
   },
   source: {
-    type: String,
-    enum: ['ai', 'keyword_fallback', 'demo'],
-    default: 'ai'
+    type: DataTypes.ENUM('ai', 'keyword_fallback', 'demo'),
+    defaultValue: 'ai',
   },
   isDemo: {
-    type: Boolean,
-    default: false
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
   timestamp: {
-    type: Date,
-    default: Date.now,
-    index: true
-  }
-  // NOTE: We intentionally do NOT store symptom descriptions or user data
-  // to protect patient privacy. Only anonymous category/severity data.
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+}, {
+  tableName: 'emergency_sessions',
+  timestamps: false, // We use our own timestamp column
+  indexes: [
+    { fields: ['category'] },
+    { fields: ['timestamp'] },
+    { fields: ['severity'] }
+  ]
 });
 
-// TTL index — auto-delete sessions older than 90 days
-emergencySessionSchema.index({ timestamp: 1 }, { expireAfterSeconds: 90 * 24 * 60 * 60 });
-
-module.exports = mongoose.models.EmergencySession || mongoose.model('EmergencySession', emergencySessionSchema);
+module.exports = EmergencySession;

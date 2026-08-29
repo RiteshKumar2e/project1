@@ -4,27 +4,24 @@
  */
 
 const { getInMemorySessions } = require('./emergencyController');
-
-async function getSessionModel() {
-  try {
-    const mongoose = require('mongoose');
-    if (mongoose.connection.readyState === 1) {
-      return require('../models/EmergencySession');
-    }
-  } catch (e) { /* MongoDB not available */ }
-  return null;
-}
+const EmergencySession = require('../models/EmergencySession');
+const { isDBConnected } = require('../models/db');
 
 /**
  * GET /api/dashboard/stats
  */
 async function getDashboardStats(req, res) {
   try {
-    const SessionModel = await getSessionModel();
-    let sessions;
+    let sessions = [];
+    const dbActive = isDBConnected();
 
-    if (SessionModel) {
-      sessions = await SessionModel.find({}).lean();
+    if (dbActive) {
+      try {
+        sessions = await EmergencySession.findAll({ raw: true });
+      } catch (err) {
+        console.error('[Dashboard Controller] DB query failed, using in-memory:', err.message);
+        sessions = getInMemorySessions();
+      }
     } else {
       sessions = getInMemorySessions();
     }
@@ -71,7 +68,7 @@ async function getDashboardStats(req, res) {
         severityDistribution: severityCount,
         topCategories,
         systemStatus: {
-          database: SessionModel ? 'connected' : 'in-memory',
+          database: dbActive ? 'sqlite' : 'in-memory',
           ai: process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here' ? 'configured' : 'fallback',
           uptime: Math.floor(process.uptime())
         }

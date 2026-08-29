@@ -54,28 +54,12 @@ app.use((req, res) => {
 // Error handler
 app.use(errorHandler);
 
-// ─── Database Connection (Optional) ─────────────────────
-async function connectDB() {
-  const mongoURI = process.env.MONGODB_URI;
-  if (!mongoURI) {
-    console.log('⚠️  MongoDB URI not configured. Using in-memory storage.');
-    console.log('   Set MONGODB_URI in .env to enable persistent storage.\n');
-    return;
-  }
-
-  try {
-    const mongoose = require('mongoose');
-    await mongoose.connect(mongoURI);
-    console.log('✅ Connected to MongoDB\n');
-  } catch (error) {
-    console.log(`⚠️  MongoDB connection failed: ${error.message}`);
-    console.log('   Continuing with in-memory storage.\n');
-  }
-}
+// ─── Database Connection ─────────────────────────────────
+const { initDB, dbStoragePath } = require('./models/db');
 
 // ─── Start Server ───────────────────────────────────────
 async function start() {
-  await connectDB();
+  await initDB();
 
   app.listen(PORT, () => {
     console.log('╔══════════════════════════════════════════════╗');

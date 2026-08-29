@@ -26,7 +26,7 @@ export default function Header() {
           </span>
           <span className="site-header__words">
             <span className="site-header__name">
-              {hi ? 'आपातकालीन सहायता' : 'Emergency Help'}
+              {hi ? 'आपातकालीन सहायता' : 'SwastyaSetu'}
             </span>
             <span className="site-header__tag">
               {hi ? 'गाँव व दूरदराज के लिए' : 'For villages & remote areas'}
