@@ -1,0 +1,150 @@
+{
+  "app": {
+    "title": "Emergency Assistance",
+    "subtitle": "AI-Powered First Aid Help for Rural Areas",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "offline": "You are offline",
+    "online": "Back online",
+    "offlineNote": "Some features require internet connection"
+  },
+  "home": {
+    "emergency": "🚨 Emergency Assistance",
+    "tagline": "Get immediate first-aid guidance and find help nearby",
+    "startHelp": "Start Emergency Help",
+    "callEmergency": "Call Emergency Services",
+    "findHospital": "Find Nearest Hospital",
+    "firstAidLibrary": "First Aid Library",
+    "demoMode": "Demo Mode",
+    "demoDescription": "Try sample emergency scenarios",
+    "quickActions": "Quick Actions",
+    "commonEmergencies": "Common Emergencies"
+  },
+  "input": {
+    "title": "Describe the Emergency",
+    "placeholder": "Describe what happened... (e.g., 'Person has severe chest pain and difficulty breathing')",
+    "voiceButton": "Speak",
+    "voiceListening": "Listening...",
+    "voiceStop": "Stop",
+    "submit": "Get Emergency Help",
+    "analyzing": "Analyzing emergency...",
+    "orSelect": "Or select an emergency type:",
+    "voiceUnavailable": "Voice input is not available on this browser. Please type your description."
+  },
+  "assessment": {
+    "title": "Emergency Assessment",
+    "category": "Emergency Type",
+    "severity": "Severity Level",
+    "critical": "Critical",
+    "urgent": "Urgent",
+    "lessUrgent": "Less Urgent",
+    "callNow": "CALL EMERGENCY SERVICES NOW",
+    "callNumber": "Call 112",
+    "immediateAction": "Immediate action required",
+    "viewFirstAid": "View First Aid Steps",
+    "findHospital": "Find Nearest Hospital",
+    "disclaimer": "This information is for emergency first-aid support only. It does not replace a doctor or emergency medical service.",
+    "aiNote": "Assessment powered by AI — always verify with medical professionals"
+  },
+  "firstAid": {
+    "title": "First Aid Guide",
+    "step": "Step",
+    "of": "of",
+    "nextStep": "Next Step",
+    "prevStep": "Previous Step",
+    "complete": "Steps Complete",
+    "warnings": "Important Warnings",
+    "doNots": "Do NOT",
+    "videos": "Learn First Aid",
+    "watchVideo": "Watch Video",
+    "offlineAvailable": "Available offline",
+    "callHelp": "Call for Help"
+  },
+  "facilities": {
+    "title": "Nearest Healthcare",
+    "searching": "Searching for nearby facilities...",
+    "noResults": "No facilities found nearby. Try expanding the search area.",
+    "getDirections": "Get Directions",
+    "call": "Call",
+    "distance": "Distance",
+    "travelTime": "Est. Travel Time",
+    "emergency": "Emergency Services",
+    "permissionNeeded": "Location permission is needed to find nearby healthcare facilities.",
+    "enableLocation": "Enable Location",
+    "hospital": "Hospital",
+    "clinic": "Clinic",
+    "healthCentre": "Health Centre",
+    "doctor": "Doctor"
+  },
+  "emergencyServices": {
+    "title": "Emergency Services",
+    "callEmergency": "Call Emergency Services",
+    "emergencyNumber": "112",
+    "ambulance": "Ambulance",
+    "ambulanceNumber": "102",
+    "findAmbulance": "Find Ambulance",
+    "findHospital": "Find Nearest Hospital",
+    "womenHelpline": "Women Helpline",
+    "womenNumber": "181",
+    "childHelpline": "Child Helpline",
+    "childNumber": "1098",
+    "policeNumber": "100",
+    "fireNumber": "101"
+  },
+  "library": {
+    "title": "First Aid Library",
+    "subtitle": "Learn about common emergencies and first-aid procedures",
+    "searchPlaceholder": "Search emergencies...",
+    "viewGuide": "View Guide",
+    "offlineAvailable": "📱 Available Offline"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "totalSessions": "Total Sessions",
+    "last24h": "Last 24 Hours",
+    "last7d": "Last 7 Days",
+    "topCategories": "Top Emergency Categories",
+    "severityBreakdown": "Severity Breakdown",
+    "systemStatus": "System Status",
+    "database": "Database",
+    "aiService": "AI Service",
+    "uptime": "Uptime"
+  },
+  "about": {
+    "title": "About & Safety",
+    "disclaimer": "Important Disclaimer",
+    "disclaimerText": "This platform is NOT a replacement for professional medical advice, diagnosis, or treatment. AI systems can make mistakes. Always contact emergency services (112) for serious emergencies.",
+    "privacy": "Privacy",
+    "privacyText": "We do not permanently store your symptom descriptions. Only anonymous emergency category data is collected to improve the service. Location is only requested when finding nearby hospitals.",
+    "howItWorks": "How It Works",
+    "step1": "Describe the emergency using text or voice",
+    "step2": "AI categorizes the emergency and determines severity",
+    "step3": "Safety rules ensure appropriate guidance is provided",
+    "step4": "Step-by-step first-aid instructions are shown",
+    "step5": "Nearest healthcare facilities are recommended",
+    "credits": "Credits",
+    "creditsText": "First-aid guidance based on protocols from Red Cross, WHO, and St John Ambulance."
+  },
+  "demo": {
+    "title": "Demo Mode",
+    "badge": "DEMO",
+    "description": "These are sample scenarios to demonstrate how the platform works. No real emergency data is used.",
+    "tryScenario": "Try This Scenario",
+    "scenarios": {
+      "s1": "Person has severe chest pain and difficulty breathing",
+      "s2": "Person has heavy bleeding after an injury",
+      "s3": "Person is unconscious and not responding",
+      "s4": "Person is choking and cannot breathe",
+      "s5": "Person suffered a minor burn on their hand"
+    }
+  },
+  "severity": {
+    "critical": "Critical — Call 112 Now",
+    "urgent": "Urgent — Seek Medical Help Soon",
+    "lessUrgent": "Less Urgent — Monitor Carefully"
+  }
+}
