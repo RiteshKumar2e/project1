@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import Header from './components/Header';
 import OfflineIndicator from './components/OfflineIndicator';
+import ChatbotWidget from './components/ChatbotWidget';
 import HomePage from './pages/HomePage';
 import EmergencyInputPage from './pages/EmergencyInputPage';
 import AssessmentPage from './pages/AssessmentPage';
@@ -44,6 +45,9 @@ export default function App() {
           <a href="tel:112" className="site-footer__call">Emergency: 112</a>
         </div>
       </footer>
+
+      {/* Floating AI Chatbot in the bottom-right corner */}
+      <ChatbotWidget />
     </div>
   );
 }

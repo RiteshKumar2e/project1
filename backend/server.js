@@ -13,6 +13,7 @@ const morgan = require('morgan');
 const emergencyRoutes = require('./routes/emergency');
 const facilityRoutes = require('./routes/facilities');
 const dashboardRoutes = require('./routes/dashboard');
+const chatRoutes = require('./routes/chat');
 const rateLimiter = require('./middleware/rateLimiter');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -35,6 +36,7 @@ app.use(rateLimiter(60, 60000)); // 60 requests per minute
 app.use('/api/emergency', emergencyRoutes);
 app.use('/api/facilities', facilityRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
