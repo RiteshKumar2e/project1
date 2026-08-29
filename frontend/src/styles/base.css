@@ -161,10 +161,6 @@ h3 { font-size: 1.0625rem; }
   margin-top: 20px;
 }
 
-.stack-tight > * + * {
-  margin-top: 12px;
-}
-
 /*
   Section heading with a rule running to the right edge. Replaces the
   floating pill badge that sat above every heading.
@@ -221,15 +217,6 @@ h3 { font-size: 1.0625rem; }
 :focus-visible {
   outline: 3px solid var(--nav-600);
   outline-offset: 2px;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
 }
 
 /* ─── Scrollbar ───────────────────────────────────── */

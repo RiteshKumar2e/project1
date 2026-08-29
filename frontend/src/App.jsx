@@ -35,7 +35,7 @@ export default function App() {
         </Routes>
       </main>
 
-      <footer className="site-footer">
+      <footer className="site-footer no-print">
         <div className="site-footer__inner">
           <span>
             Rural Emergency Assistance &middot;{' '}

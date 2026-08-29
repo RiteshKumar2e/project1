@@ -69,7 +69,7 @@ export default function HomePage() {
 
       <SafetyDisclaimer />
 
-      <section>
+      <section className="no-print">
         <button className="home__demo-toggle" onClick={() => setShowDemo(!showDemo)}>
           {showDemo
             ? (hi ? 'नमूने छिपाएँ' : 'Hide samples')

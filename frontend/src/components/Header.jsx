@@ -45,7 +45,7 @@ export default function Header() {
         </div>
       </div>
 
-      <nav className="site-nav">
+      <nav className="site-nav no-print">
         <div className="site-nav__inner">
           {navItems.map(({ to, icon: Icon, label }) => (
             <Link key={to} to={to} aria-current={location.pathname === to ? 'page' : undefined}>
