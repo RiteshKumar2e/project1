@@ -1,0 +1,479 @@
+/*
+  theme-brutal.css - the second look, neo-brutalist.
+
+  Everything here is scoped to [data-theme="brutal"], so the plain theme is
+  untouched by this file existing. Most of the work is done by re-pointing
+  the tokens in base.css: black rules, zero radius, saturated fills. Below
+  that are the things tokens cannot express - hard offset shadows, the press
+  effect, and the shouty label treatment.
+
+  What deliberately does NOT change: 56px tap targets, the single functional
+  animation, and 4.5:1 minimum contrast. The look is loud; the app still has
+  to work for someone panicking in bright sunlight.
+*/
+
+[data-theme="brutal"] {
+  /* Brutalist accents. Black text on bright fills, which is both the
+     convention and, conveniently, the highest contrast option there is. */
+  --b-yellow: #ffd60a;
+  --b-cyan: #22d3ee;
+  --b-lime: #a3e635;
+  --b-pink: #f472b6;
+  --b-black: #000000;
+
+  /* Red stays dark enough to carry white text at 5.5:1 */
+  --alert-50: #ffe4e6;
+  --alert-100: #fecdd3;
+  --alert-200: #fda4af;
+  --alert-500: #f01c3f;
+  --alert-600: #d90429;
+  --alert-700: #a4031f;
+  --alert-800: #6d0114;
+  --alert-900: #3f0009;
+
+  --warn-50: #fff8d6;
+  --warn-100: var(--b-yellow);
+  --warn-600: #8a5a00;
+  --warn-800: #4a3000;
+  --warn-900: #2e1e00;
+
+  --go-50: #ecfccb;
+  --go-100: var(--b-lime);
+  --go-600: #3f6212;
+  --go-700: #32500e;
+  --go-800: #1f3305;
+
+  --paper: #fff8e7;
+  --white: #ffffff;
+
+  --ink-900: #000000;
+  --ink-800: #171717;
+  --ink-700: #262626;
+  --ink-600: #333333;
+  --ink-500: #4a4a4a;
+  --ink-400: #6b6b6b;
+  /* Borders are always black in this style, so the grey steps collapse */
+  --ink-300: #000000;
+  --ink-200: #000000;
+  --ink-100: #fff0b8;
+
+  --nav-600: #0b3d91;
+  --nav-500: #1d5fd0;
+
+  --radius: 0px;
+  --rule: 3px solid #000;
+  --rule-strong: 4px solid #000;
+
+  --hard: 4px 4px 0 #000;
+  --hard-lg: 6px 6px 0 #000;
+  --hard-press: 2px 2px 0 #000;
+}
+
+/* --- Page ---------------------------------------------------- */
+[data-theme="brutal"] body {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 14px,
+      rgba(0, 0, 0, 0.025) 14px 15px
+    ),
+    var(--paper);
+}
+
+[data-theme="brutal"] h1,
+[data-theme="brutal"] h2,
+[data-theme="brutal"] h3 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+[data-theme="brutal"] .section-label {
+  color: var(--b-black);
+  font-weight: 800;
+}
+
+[data-theme="brutal"] .section-label::after {
+  height: 3px;
+  background: var(--b-black);
+}
+
+/* --- The brutalist signature: hard shadow, then press ---------- */
+[data-theme="brutal"] .card,
+[data-theme="brutal"] .btn,
+[data-theme="brutal"] .action,
+[data-theme="brutal"] .field,
+[data-theme="brutal"] .step,
+[data-theme="brutal"] .category,
+[data-theme="brutal"] .facility,
+[data-theme="brutal"] .video,
+[data-theme="brutal"] .demo,
+[data-theme="brutal"] .voice-btn,
+[data-theme="brutal"] .notice,
+[data-theme="brutal"] .severity,
+[data-theme="brutal"] .home__tile,
+[data-theme="brutal"] .home__all,
+[data-theme="brutal"] .input__pick,
+[data-theme="brutal"] .assess__call,
+[data-theme="brutal"] .guide__call,
+[data-theme="brutal"] .library__filter,
+[data-theme="brutal"] .finder__chip,
+[data-theme="brutal"] .finder__refresh,
+[data-theme="brutal"] .finder__ambulance,
+[data-theme="brutal"] .helpline,
+[data-theme="brutal"] .helpline__call,
+[data-theme="brutal"] .helplines__intro,
+[data-theme="brutal"] .dash__tile,
+[data-theme="brutal"] .dash__status-row,
+[data-theme="brutal"] .about__stage,
+[data-theme="brutal"] .site-header__call,
+[data-theme="brutal"] .lang-switch,
+[data-theme="brutal"] .demo__item {
+  border: 3px solid var(--b-black);
+  border-radius: 0;
+  box-shadow: var(--hard);
+}
+
+[data-theme="brutal"] .btn:active,
+[data-theme="brutal"] .action:active,
+[data-theme="brutal"] .category:active,
+[data-theme="brutal"] .home__tile:active,
+[data-theme="brutal"] .input__pick:active,
+[data-theme="brutal"] .library__filter:active,
+[data-theme="brutal"] .finder__chip:active,
+[data-theme="brutal"] .demo__item:active,
+[data-theme="brutal"] .voice-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--hard-press);
+}
+
+[data-theme="brutal"] .btn--quiet {
+  border: none;
+  box-shadow: none;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+
+[data-theme="brutal"] .btn--quiet:active {
+  transform: none;
+  box-shadow: none;
+}
+
+/* --- Buttons -------------------------------------------------- */
+[data-theme="brutal"] .btn {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="brutal"] .btn--outline {
+  background: var(--b-yellow);
+  color: var(--b-black);
+}
+
+[data-theme="brutal"] .btn--outline:hover { background: var(--b-cyan); }
+[data-theme="brutal"] .btn--solid:hover { background: var(--ink-800); }
+[data-theme="brutal"] .btn--alert:hover { background: var(--alert-700); }
+
+[data-theme="brutal"] .btn[disabled] {
+  background: var(--ink-100);
+  color: var(--ink-400);
+  box-shadow: var(--hard);
+}
+
+[data-theme="brutal"] .action__label {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .action--plain { background: var(--b-cyan); }
+
+/* --- Header --------------------------------------------------- */
+[data-theme="brutal"] .site-header {
+  background: var(--b-yellow);
+  border-bottom: 4px solid var(--b-black);
+}
+
+[data-theme="brutal"] .site-header__mark {
+  border: 3px solid var(--b-black);
+  box-shadow: var(--hard);
+}
+
+[data-theme="brutal"] .site-header__tag { color: var(--ink-700); }
+
+[data-theme="brutal"] .site-header__name {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .site-header__call {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .lang-switch { overflow: visible; }
+
+[data-theme="brutal"] .lang-switch button {
+  font-weight: 800;
+  background: var(--white);
+}
+
+[data-theme="brutal"] .lang-switch button + button {
+  border-left: 3px solid var(--b-black);
+}
+
+[data-theme="brutal"] .lang-switch button[aria-pressed="true"] {
+  background: var(--b-black);
+  color: var(--b-yellow);
+}
+
+[data-theme="brutal"] .site-nav {
+  background: var(--b-black);
+  border-top: none;
+}
+
+[data-theme="brutal"] .site-nav a {
+  color: var(--white);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom-width: 5px;
+}
+
+[data-theme="brutal"] .site-nav a:hover { color: var(--b-yellow); }
+
+[data-theme="brutal"] .site-nav a[aria-current="page"] {
+  background: var(--b-yellow);
+  border-bottom-color: var(--alert-600);
+  color: var(--b-black);
+}
+
+/* --- Footer, offline bar -------------------------------------- */
+[data-theme="brutal"] .site-footer {
+  background: var(--b-black);
+  border-top: 4px solid var(--b-black);
+}
+
+[data-theme="brutal"] .site-footer__inner { color: var(--white); }
+[data-theme="brutal"] .site-footer__call { color: var(--b-yellow); }
+
+/* Yellow with black text, not white on brown - louder and higher contrast */
+[data-theme="brutal"] .offline-bar {
+  background: var(--b-yellow);
+  color: var(--b-black);
+  border-bottom: 3px solid var(--b-black);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* --- Notices and badges --------------------------------------- */
+[data-theme="brutal"] .notice {
+  border: 3px solid var(--b-black);
+  border-left-width: 12px;
+  background: var(--b-cyan);
+  color: var(--b-black);
+}
+
+[data-theme="brutal"] .notice--alert {
+  background: var(--alert-600);
+  color: var(--white);
+}
+
+[data-theme="brutal"] .notice--alert .notice__title { color: var(--white); }
+[data-theme="brutal"] .notice--warn { background: var(--b-yellow); color: var(--b-black); }
+[data-theme="brutal"] .notice__title { text-transform: uppercase; font-weight: 800; }
+
+[data-theme="brutal"] .severity {
+  font-weight: 800;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 #000;
+}
+
+[data-theme="brutal"] .severity--urgent { background: var(--b-yellow); color: var(--b-black); }
+[data-theme="brutal"] .severity--mild { background: var(--b-lime); color: var(--b-black); }
+
+/* --- Steps ---------------------------------------------------- */
+[data-theme="brutal"] .step { box-shadow: var(--hard-lg); }
+
+[data-theme="brutal"] .step__head {
+  background: var(--b-black);
+  border-bottom: 3px solid var(--b-black);
+  font-weight: 800;
+}
+
+[data-theme="brutal"] .step.is-done .step__head { background: var(--go-600); }
+[data-theme="brutal"] .step.is-done { background: var(--b-lime); }
+[data-theme="brutal"] .step__text { font-weight: 700; }
+
+/* --- Cards ---------------------------------------------------- */
+[data-theme="brutal"] .category:hover,
+[data-theme="brutal"] .home__tile:hover,
+[data-theme="brutal"] .input__pick:hover,
+[data-theme="brutal"] .video:hover,
+[data-theme="brutal"] .demo__item:hover {
+  background: var(--b-yellow);
+}
+
+[data-theme="brutal"] .category__name,
+[data-theme="brutal"] .home__tile-name,
+[data-theme="brutal"] .facility__name,
+[data-theme="brutal"] .helpline__name { font-weight: 800; }
+
+[data-theme="brutal"] .facility__actions { border-top: 3px solid var(--b-black); }
+[data-theme="brutal"] .facility__actions a { font-weight: 800; text-transform: uppercase; }
+[data-theme="brutal"] .facility__actions a:first-child {
+  border-right: 3px solid var(--b-black);
+  background: var(--b-cyan);
+}
+[data-theme="brutal"] .facility__actions a:last-child { background: var(--b-yellow); }
+[data-theme="brutal"] .facility__actions a:hover { background: var(--white); }
+
+[data-theme="brutal"] .facility__tag,
+[data-theme="brutal"] .demo__badge {
+  border: 2px solid var(--b-black);
+  font-weight: 800;
+}
+
+[data-theme="brutal"] .video__play { border: 3px solid var(--b-black); }
+
+[data-theme="brutal"] .demo__head {
+  background: var(--b-pink);
+  color: var(--b-black);
+  border-bottom: 3px solid var(--b-black);
+}
+
+[data-theme="brutal"] .demo__note { color: var(--b-black); }
+[data-theme="brutal"] .demo__item { box-shadow: 3px 3px 0 #000; }
+
+/* --- Forms and voice ------------------------------------------ */
+[data-theme="brutal"] .field:focus {
+  border-color: var(--b-black);
+  box-shadow: var(--hard), 0 0 0 3px var(--b-cyan);
+}
+
+[data-theme="brutal"] .field-label { text-transform: uppercase; font-weight: 800; }
+
+[data-theme="brutal"] .voice-btn {
+  background: var(--b-lime);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .voice-btn:hover { background: var(--b-cyan); }
+[data-theme="brutal"] .voice-btn.is-listening { background: var(--alert-600); }
+
+/* --- Progress and meters -------------------------------------- */
+[data-theme="brutal"] .guide__track,
+[data-theme="brutal"] .dash__track {
+  height: 16px;
+  border: 3px solid var(--b-black);
+  background: var(--white);
+}
+
+[data-theme="brutal"] .guide__fill,
+[data-theme="brutal"] .dash__fill { background: var(--alert-600); }
+
+/* --- Page specifics ------------------------------------------- */
+[data-theme="brutal"] .home__theme {
+  background: var(--b-pink);
+  border: 3px solid var(--b-black);
+  box-shadow: var(--hard);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .home__theme:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--hard-press);
+}
+
+/* Flipped: in the bold look the chip previews the plain one */
+[data-theme="brutal"] .home__theme-swatch {
+  background: linear-gradient(135deg, #a81f19 50%, #f7f4ef 50%);
+  border-radius: 4px;
+  border-color: #544e45;
+  box-shadow: none;
+}
+
+[data-theme="brutal"] .home__demo-toggle { color: var(--b-black); font-weight: 800; }
+
+[data-theme="brutal"] .home__all {
+  background: var(--b-lime);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .home__all:hover { background: var(--b-cyan); }
+
+[data-theme="brutal"] .helplines__intro {
+  background: var(--b-yellow);
+  border-left-width: 12px;
+}
+
+[data-theme="brutal"] .helpline.is-primary {
+  background: var(--alert-50);
+  box-shadow: var(--hard-lg);
+}
+
+[data-theme="brutal"] .helpline__call {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .finder__ambulance { box-shadow: var(--hard-lg); }
+
+[data-theme="brutal"] .finder__ambulance-call {
+  border: 3px solid var(--b-black);
+  background: var(--b-yellow);
+  color: var(--b-black);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .library__filter { font-weight: 800; text-transform: uppercase; }
+[data-theme="brutal"] .library__filter[aria-pressed="true"] { background: var(--b-black); color: var(--b-yellow); }
+[data-theme="brutal"] .library__filter--critical[aria-pressed="true"] { background: var(--alert-600); color: var(--white); }
+[data-theme="brutal"] .library__filter--urgent[aria-pressed="true"] { background: var(--b-yellow); color: var(--b-black); }
+
+[data-theme="brutal"] .library__empty { border: 3px dashed var(--b-black); }
+
+[data-theme="brutal"] .finder__chip[aria-pressed="true"] { background: var(--b-black); color: var(--b-yellow); }
+[data-theme="brutal"] .finder__refresh { background: var(--b-cyan); font-weight: 800; }
+
+[data-theme="brutal"] .dash__tile-label { color: var(--b-black); font-weight: 800; }
+[data-theme="brutal"] .dash__status-row { background: var(--white); }
+
+[data-theme="brutal"] .dash__status-value {
+  border: 2px solid var(--b-black);
+  background: var(--b-lime);
+  color: var(--b-black);
+  font-weight: 800;
+}
+
+[data-theme="brutal"] .dash__status-value--idle { background: var(--ink-100); }
+
+[data-theme="brutal"] .about__stage { background: var(--white); }
+[data-theme="brutal"] .about__stage::before { border: 3px solid var(--b-black); }
+
+[data-theme="brutal"] .assess__call { box-shadow: var(--hard-lg); }
+[data-theme="brutal"] .assess__call-label { text-transform: uppercase; }
+
+[data-theme="brutal"] .guide__call {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+[data-theme="brutal"] .loading__spinner { color: var(--alert-600); }
+
+/*
+  The one animation, restated in this style: the hard shadow throbs instead
+  of a soft ring spreading. Same job, same 2.4s, no scaling.
+*/
+@keyframes brutal-throb {
+  0%, 100% { box-shadow: 5px 5px 0 #000; }
+  50%      { box-shadow: 10px 10px 0 var(--alert-700); }
+}
+
+[data-theme="brutal"] .is-pulsing {
+  animation: brutal-throb 2.4s ease-in-out infinite;
+}
