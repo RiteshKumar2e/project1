@@ -10,14 +10,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--s4);
 }
 
 .guide__call {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: var(--s3) var(--s4);
   border: 2px solid var(--alert-700);
   border-radius: var(--radius);
   background: var(--alert-600);
@@ -32,14 +32,14 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: var(--s4);
+  margin-bottom: var(--s5);
 }
 
 .guide__ident {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--s4);
 }
 
 .guide__icon {
@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: var(--s2);
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--ink-600);
@@ -85,8 +85,8 @@
 
 .guide__nav {
   display: flex;
-  gap: 12px;
-  margin-top: 12px;
+  gap: var(--s4);
+  margin-top: var(--s5);
 }
 
 .guide__nav .btn { flex: 1; }
@@ -103,14 +103,15 @@
 /* Warnings and don'ts are lists people scan, so they get real list markers */
 .guide__list {
   display: grid;
-  gap: 8px;
-  margin-top: 8px;
+  gap: var(--s3);
+  margin-top: var(--s3);
 }
 
 .guide__list li {
   display: flex;
-  gap: 10px;
-  font-size: 0.9375rem;
+  gap: var(--s3);
+  max-width: var(--measure);
+  font-size: 1rem;
 }
 
 .guide__list li::before {
@@ -125,13 +126,14 @@
 .guide__panel-title {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--s3);
+  margin-bottom: var(--s2);
   font-size: 1.0625rem;
 }
 
 .guide__videos {
   display: grid;
-  gap: 10px;
+  gap: var(--s4);
 }
 
 @media (min-width: 40rem) {

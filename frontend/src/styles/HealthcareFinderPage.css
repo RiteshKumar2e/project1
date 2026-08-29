@@ -11,12 +11,13 @@
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: var(--s4);
+  margin-bottom: var(--s5);
 }
 
 .finder__sub {
-  margin-top: 4px;
+  max-width: var(--measure);
+  margin-top: var(--s2);
   font-size: 0.9375rem;
   color: var(--ink-600);
 }
@@ -24,8 +25,8 @@
 .finder__refresh {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: var(--s2);
+  padding: var(--s3) var(--s4);
   border: 2px solid var(--ink-300);
   border-radius: var(--radius);
   background: var(--white);
@@ -39,8 +40,9 @@
 .finder__radius {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding-top: 16px;
+  gap: var(--s3);
+  padding-top: var(--s5);
+  margin-top: var(--s5);
   border-top: var(--rule);
   overflow-x: auto;
   scrollbar-width: none;
@@ -57,7 +59,7 @@
 }
 
 .finder__chip {
-  padding: 8px 14px;
+  padding: var(--s3) var(--s4);
   border: 2px solid var(--ink-300);
   border-radius: var(--radius);
   background: var(--white);
@@ -80,8 +82,8 @@
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: var(--s3);
+  margin-bottom: var(--s5);
 }
 
 .finder__count-note {
@@ -91,7 +93,7 @@
 
 .finder__grid {
   display: grid;
-  gap: 12px;
+  gap: var(--s5);
 }
 
 @media (min-width: 44rem) {
@@ -104,8 +106,8 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 20px;
+  gap: var(--s5);
+  padding: var(--s6);
   border: 2px solid var(--alert-800);
   border-radius: var(--radius);
   background: var(--alert-600);
@@ -115,15 +117,15 @@
 .finder__ambulance h3 { font-size: 1.25rem; }
 
 .finder__ambulance p {
-  margin-top: 2px;
+  margin-top: var(--s1);
   font-size: 0.9375rem;
 }
 
 .finder__ambulance-call {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 24px;
+  gap: var(--s2);
+  padding: var(--s4) var(--s5);
   border-radius: var(--radius);
   background: var(--white);
   color: var(--alert-700);

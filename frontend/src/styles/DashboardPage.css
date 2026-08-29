@@ -6,10 +6,11 @@
   chart library and no decoration.
 */
 
-.dash__head { margin-bottom: 20px; }
+.dash__head { margin-bottom: var(--s5); }
 
 .dash__sub {
-  margin-top: 4px;
+  max-width: var(--measure);
+  margin-top: var(--s2);
   font-size: 0.9375rem;
   color: var(--ink-600);
 }
@@ -17,7 +18,7 @@
 .dash__tiles {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: var(--s4);
 }
 
 @media (min-width: 44rem) {
@@ -25,7 +26,7 @@
 }
 
 .dash__tile {
-  padding: 16px;
+  padding: var(--s5);
   border: 2px solid var(--ink-200);
   border-radius: var(--radius);
   background: var(--white);
@@ -42,8 +43,8 @@
 
 .dash__tile-value {
   display: block;
-  margin-top: 4px;
-  font-size: 2rem;
+  margin-top: var(--s2);
+  font-size: 2.25rem;
   font-weight: 700;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -53,14 +54,14 @@
 
 .dash__tile-note {
   display: block;
-  margin-top: 4px;
+  margin-top: var(--s2);
   font-size: 0.8125rem;
   color: var(--ink-500);
 }
 
 .dash__cols {
   display: grid;
-  gap: 20px;
+  gap: var(--s6);
 }
 
 @media (min-width: 52rem) {
@@ -69,15 +70,15 @@
 
 .dash__bars {
   display: grid;
-  gap: 12px;
-  margin-top: 16px;
+  gap: var(--s5);
+  margin-top: var(--s5);
 }
 
 .dash__bar-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin-bottom: var(--s2);
   font-size: 0.9375rem;
   font-weight: 700;
 }
@@ -101,8 +102,8 @@
 
 .dash__status {
   display: grid;
-  gap: 8px;
-  margin-top: 16px;
+  gap: var(--s3);
+  margin-top: var(--s5);
 }
 
 .dash__status-row {
@@ -110,8 +111,8 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 12px 14px;
+  gap: var(--s3);
+  padding: var(--s4);
   border: var(--rule);
   border-radius: var(--radius);
   background: var(--paper);
@@ -121,7 +122,7 @@
 .dash__status-name {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--s2);
   font-weight: 700;
 }
 
@@ -129,7 +130,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 2px 8px;
+  padding: 2px var(--s2);
   border: 1px solid var(--go-600);
   border-radius: var(--radius);
   background: var(--go-50);

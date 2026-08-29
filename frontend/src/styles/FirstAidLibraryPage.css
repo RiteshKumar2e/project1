@@ -7,8 +7,8 @@
 
 .library__tools {
   display: grid;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: var(--s4);
+  margin-bottom: var(--s5);
 }
 
 @media (min-width: 44rem) {
@@ -32,12 +32,12 @@
 
 .library__filters {
   display: flex;
-  gap: 6px;
+  gap: var(--s2);
 }
 
 .library__filter {
   flex: 1;
-  padding: 12px 8px;
+  padding: var(--s4) var(--s3);
   border: 2px solid var(--ink-300);
   border-radius: var(--radius);
   background: var(--white);
@@ -67,7 +67,7 @@
 
 .library__grid {
   display: grid;
-  gap: 12px;
+  gap: var(--s5);
 }
 
 @media (min-width: 34rem) {
@@ -79,7 +79,7 @@
 }
 
 .library__empty {
-  padding: 48px 16px;
+  padding: var(--s8) var(--s5);
   border: 2px dashed var(--ink-300);
   border-radius: var(--radius);
   text-align: center;
@@ -87,5 +87,5 @@
 
 .library__empty p {
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: var(--s4);
 }

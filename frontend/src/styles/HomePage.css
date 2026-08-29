@@ -7,19 +7,14 @@
 */
 
 .home__ask {
-  margin-bottom: 16px;
-  font-size: 1.75rem;
-}
-
-@media (min-width: 40rem) {
-  .home__ask { font-size: 2rem; }
+  margin-bottom: var(--s5);
 }
 
 /* Call and Find-hospital sit side by side once there is room for both */
 .home__shortcuts {
   display: grid;
-  gap: 12px;
-  margin-top: 12px;
+  gap: var(--s4);
+  margin-top: var(--s4);
 }
 
 @media (min-width: 40rem) {
@@ -33,7 +28,7 @@
 .home__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: var(--s4);
 }
 
 @media (min-width: 40rem) {
@@ -41,7 +36,7 @@
 }
 
 .home__tile {
-  padding: 16px 12px;
+  padding: var(--s5) var(--s4);
   border: 2px solid var(--ink-200);
   border-radius: var(--radius);
   background: var(--white);
@@ -52,8 +47,8 @@
 
 .home__tile-icon {
   display: block;
-  margin-bottom: 8px;
-  font-size: 2.25rem;
+  margin-bottom: var(--s3);
+  font-size: 2.5rem;
   line-height: 1;
 }
 
@@ -66,15 +61,15 @@
 
 .home__tile-steps {
   display: block;
-  margin-top: 4px;
+  margin-top: var(--s1);
   font-size: 0.8125rem;
   color: var(--ink-500);
 }
 
 .home__all {
   display: block;
-  margin-top: 12px;
-  padding: 14px;
+  margin-top: var(--s4);
+  padding: var(--s4);
   border: 2px solid var(--ink-300);
   border-radius: var(--radius);
   font-weight: 700;
@@ -97,10 +92,10 @@
 .home__theme {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--s2);
   width: auto;
   min-height: 44px;
-  padding: 8px 14px;
+  padding: var(--s3) var(--s4);
   border: 2px solid var(--ink-300);
   border-radius: var(--radius);
   background: var(--white);
