@@ -127,7 +127,7 @@ export default function ChatbotWidget() {
             <div className="chatbot-header__title">
               <span style={{ fontSize: '1.4rem' }}>🏥</span>
               <div>
-                <span className="chatbot-header__name">First-Aid AI Assistant</span>
+                <span className="chatbot-header__name">SwasthyaSetu AI Assistant</span>
                 <span className="chatbot-header__subtitle">24/7 Rural Emergency Guidance</span>
               </div>
             </div>

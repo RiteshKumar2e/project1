@@ -39,7 +39,7 @@ export default function App() {
       <footer className="site-footer no-print">
         <div className="site-footer__inner">
           <span>
-            Rural Emergency Assistance &middot;{' '}
+            <strong>SwasthyaSetu</strong> &middot; Rural Emergency &amp; Health Bridge &middot;{' '}
             <Link to="/about">About &amp; safety</Link>
           </span>
           <a href="tel:112" className="site-footer__call">Emergency: 112</a>
