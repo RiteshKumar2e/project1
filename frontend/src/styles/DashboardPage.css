@@ -1,0 +1,144 @@
+/*
+  DashboardPage.css
+
+  An operations view, not a villager-facing screen: how much the service is
+  being used and whether its parts are up. Plain figures and plain bars, no
+  chart library and no decoration.
+*/
+
+.dash__head { margin-bottom: 20px; }
+
+.dash__sub {
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.dash__tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 44rem) {
+  .dash__tiles { grid-template-columns: repeat(4, 1fr); }
+}
+
+.dash__tile {
+  padding: 16px;
+  border: 2px solid var(--ink-200);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.dash__tile-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.dash__tile-value {
+  display: block;
+  margin-top: 4px;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.dash__tile-value--alert { color: var(--alert-600); }
+
+.dash__tile-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8125rem;
+  color: var(--ink-500);
+}
+
+.dash__cols {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 52rem) {
+  .dash__cols { grid-template-columns: 1fr 1fr; }
+}
+
+.dash__bars {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.dash__bar-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.dash__bar-count {
+  color: var(--ink-500);
+  font-variant-numeric: tabular-nums;
+}
+
+.dash__track {
+  height: 10px;
+  border: 1px solid var(--ink-300);
+  background: var(--ink-100);
+  overflow: hidden;
+}
+
+.dash__fill {
+  height: 100%;
+  background: var(--alert-600);
+}
+
+.dash__status {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dash__status-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border: var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-size: 0.9375rem;
+}
+
+.dash__status-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.dash__status-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--go-600);
+  border-radius: var(--radius);
+  background: var(--go-50);
+  color: var(--go-800);
+  font-weight: 700;
+}
+
+.dash__status-value--idle {
+  border-color: var(--ink-300);
+  background: var(--ink-100);
+  color: var(--ink-700);
+}

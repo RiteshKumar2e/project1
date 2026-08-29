@@ -1,0 +1,125 @@
+/*
+  EmergencyServicesPage.css
+
+  A directory of India's public helplines. The number itself is the thing
+  people are looking for, so it is set large and is part of the button
+  rather than hidden inside body text.
+*/
+
+.helplines__intro {
+  padding: 20px;
+  border-left: 6px solid var(--alert-600);
+  background: var(--white);
+  border-top: var(--rule);
+  border-right: var(--rule);
+  border-bottom: var(--rule);
+}
+
+.helplines__intro h1 { margin-bottom: 4px; }
+
+.helplines__intro p {
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.helplines__list {
+  display: grid;
+  gap: 12px;
+}
+
+.helpline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border: 2px solid var(--ink-200);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+/* 112 covers every emergency in India, so it is visibly the default */
+.helpline.is-primary {
+  border-color: var(--alert-600);
+  border-width: 3px;
+}
+
+.helpline__ident {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.helpline__icon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.helpline__name {
+  font-size: 1.0625rem;
+  line-height: 1.25;
+}
+
+.helpline__desc {
+  margin-top: 2px;
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.helpline__call {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 11rem;
+  padding: 14px 20px;
+  border: 2px solid var(--ink-900);
+  border-radius: var(--radius);
+  background: var(--ink-900);
+  color: var(--white);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.helpline__call:hover { background: var(--ink-800); }
+
+.helpline.is-primary .helpline__call {
+  background: var(--alert-600);
+  border-color: var(--alert-700);
+}
+
+.helpline.is-primary .helpline__call:hover { background: var(--alert-700); }
+
+.helpline__number {
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+}
+
+.helpline__call svg { fill: var(--white); }
+
+@media (max-width: 34rem) {
+  .helpline__call {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.helplines__finder {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.helplines__finder-text h3 { font-size: 1.0625rem; }
+
+.helplines__finder-text p {
+  margin-top: 2px;
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.helplines__finder .btn { width: auto; flex-shrink: 0; }

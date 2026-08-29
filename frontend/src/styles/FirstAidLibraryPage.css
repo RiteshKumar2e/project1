@@ -1,0 +1,91 @@
+/*
+  FirstAidLibraryPage.css
+
+  The browsing screen, used when there is no emergency: reading ahead,
+  or a health worker looking something up.
+*/
+
+.library__tools {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 44rem) {
+  .library__tools { grid-template-columns: 2fr 1fr; }
+}
+
+.library__search { position: relative; }
+
+.library__search svg {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  color: var(--ink-400);
+  pointer-events: none;
+}
+
+.library__search .field { padding-left: 42px; }
+
+.library__filters {
+  display: flex;
+  gap: 6px;
+}
+
+.library__filter {
+  flex: 1;
+  padding: 12px 8px;
+  border: 2px solid var(--ink-300);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink-700);
+  white-space: nowrap;
+}
+
+.library__filter:hover { border-color: var(--ink-900); }
+
+.library__filter[aria-pressed="true"] {
+  background: var(--ink-900);
+  border-color: var(--ink-900);
+  color: var(--white);
+}
+
+.library__filter--critical[aria-pressed="true"] {
+  background: var(--alert-600);
+  border-color: var(--alert-700);
+}
+
+.library__filter--urgent[aria-pressed="true"] {
+  background: var(--warn-600);
+  border-color: var(--warn-600);
+}
+
+.library__grid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 34rem) {
+  .library__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 60rem) {
+  .library__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.library__empty {
+  padding: 48px 16px;
+  border: 2px dashed var(--ink-300);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.library__empty p {
+  font-weight: 700;
+  margin-bottom: 8px;
+}

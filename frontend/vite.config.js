@@ -1,12 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
@@ -14,8 +12,8 @@ export default defineConfig({
         name: 'Rural Emergency Assistance',
         short_name: 'Emergency Aid',
         description: 'AI-powered emergency first-aid assistance for rural and remote areas',
-        theme_color: '#DC2626',
-        background_color: '#ffffff',
+        theme_color: '#a81f19',
+        background_color: '#f7f4ef',
         display: 'standalone',
         orientation: 'portrait',
         categories: ['health', 'medical'],

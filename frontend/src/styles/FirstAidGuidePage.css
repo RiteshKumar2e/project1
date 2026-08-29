@@ -1,0 +1,139 @@
+/*
+  FirstAidGuidePage.css
+
+  One step on screen at a time. Showing a numbered list of nine things at
+  once is how people lose their place; showing one large instruction with a
+  Next button is how they keep it.
+*/
+
+.guide__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.guide__call {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 2px solid var(--alert-700);
+  border-radius: var(--radius);
+  background: var(--alert-600);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.guide__call:hover { background: var(--alert-700); }
+.guide__call svg { fill: var(--white); }
+
+.guide__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.guide__ident {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.guide__icon {
+  font-size: 2.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.guide__kicker {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+
+.guide__name {
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+
+/* Progress reads as a count first, a bar second - numbers reassure */
+.guide__progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink-600);
+}
+
+.guide__track {
+  height: 10px;
+  border: 1px solid var(--ink-300);
+  background: var(--ink-100);
+  overflow: hidden;
+}
+
+.guide__fill {
+  height: 100%;
+  background: var(--alert-600);
+  transition: width 0.2s ease;
+}
+
+.guide__nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.guide__nav .btn { flex: 1; }
+.guide__nav .btn--next { flex: 2; }
+
+.guide__done {
+  background: var(--go-600);
+  border-color: var(--go-700);
+  color: var(--white);
+}
+
+.guide__done:hover { background: var(--go-700); }
+
+/* Warnings and don'ts are lists people scan, so they get real list markers */
+.guide__list {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.guide__list li {
+  display: flex;
+  gap: 10px;
+  font-size: 0.9375rem;
+}
+
+.guide__list li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.55em;
+  background: currentColor;
+}
+
+.guide__panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.0625rem;
+}
+
+.guide__videos {
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 40rem) {
+  .guide__videos { grid-template-columns: 1fr 1fr; }
+}

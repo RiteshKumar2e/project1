@@ -1,0 +1,761 @@
+/*
+  components.css - the shared vocabulary every page draws on:
+  buttons, cards, badges, the header, and the reusable components in
+  src/components/. Rules specific to one page live in that page's own file.
+*/
+
+/* --- Buttons ------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 14px 20px;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.btn:active { transform: translateY(1px); }
+.btn svg { flex-shrink: 0; }
+
+.btn--alert {
+  background: var(--alert-600);
+  border-color: var(--alert-700);
+  color: var(--white);
+}
+.btn--alert:hover { background: var(--alert-700); }
+
+.btn--solid {
+  background: var(--ink-900);
+  border-color: var(--ink-900);
+  color: var(--white);
+}
+.btn--solid:hover { background: var(--ink-800); }
+
+.btn--outline {
+  background: var(--white);
+  border-color: var(--ink-300);
+  color: var(--ink-900);
+}
+.btn--outline:hover { border-color: var(--ink-900); }
+
+.btn--quiet {
+  width: auto;
+  min-height: 0;
+  padding: 8px 0;
+  background: none;
+  border-color: transparent;
+  font-weight: 600;
+  color: var(--ink-600);
+}
+.btn--quiet:hover { color: var(--ink-900); }
+
+.btn--lg {
+  padding: 18px 20px;
+  font-size: 1.125rem;
+}
+
+.btn[disabled] {
+  background: var(--ink-200);
+  border-color: var(--ink-200);
+  color: var(--ink-400);
+  cursor: not-allowed;
+}
+
+/*
+  The primary action on a screen: icon, two-line label, arrow.
+  Big enough to hit without aiming.
+*/
+.action {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 20px;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  text-align: left;
+}
+
+.action__body { flex: 1; min-width: 0; }
+
+.action__label {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.action__note {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.action--alert {
+  background: var(--alert-600);
+  border-color: var(--alert-700);
+  color: var(--white);
+}
+.action--alert:hover { background: var(--alert-700); }
+
+.action--solid {
+  background: var(--ink-900);
+  border-color: var(--ink-900);
+  color: var(--white);
+}
+.action--solid:hover { background: var(--ink-800); }
+
+.action--plain {
+  background: var(--white);
+  border-color: var(--ink-300);
+  color: var(--ink-900);
+}
+.action--plain:hover { border-color: var(--ink-900); }
+
+/* --- Card --------------------------------------------------- */
+/* A rule, never a shadow - shadows vanish on a sunlit phone screen */
+.card {
+  padding: 20px;
+  background: var(--white);
+  border: var(--rule);
+  border-radius: var(--radius);
+}
+
+.card--flush { padding: 0; }
+
+/* --- Form fields -------------------------------------------- */
+.field {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--ink-300);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-size: 1.0625rem;
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--ink-900);
+}
+
+.field::placeholder { color: var(--ink-400); }
+
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.field-error {
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--alert-700);
+}
+
+/* --- Notices ------------------------------------------------ */
+/* A left bar reads as an aside without needing a full coloured panel */
+.notice {
+  padding: 12px 16px;
+  border-left: 4px solid var(--ink-400);
+  background: var(--ink-100);
+  font-size: 0.9375rem;
+  color: var(--ink-700);
+}
+
+.notice__title {
+  display: block;
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: var(--ink-900);
+}
+
+.notice--alert {
+  border-left-color: var(--alert-600);
+  background: var(--alert-50);
+  color: var(--alert-900);
+}
+
+.notice--warn {
+  border-left-color: var(--warn-600);
+  background: var(--warn-50);
+  color: var(--warn-900);
+}
+
+/* --- Severity badge ----------------------------------------- */
+/*
+  One signal, not three. The original showed a coloured dot, an icon and a
+  word for the same fact. Icon plus word survives colour blindness; the
+  decorative dot is gone.
+*/
+.severity {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 2px solid;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.severity--critical {
+  background: var(--alert-600);
+  border-color: var(--alert-800);
+  color: var(--white);
+}
+
+.severity--urgent {
+  background: var(--warn-50);
+  border-color: var(--warn-600);
+  color: var(--warn-800);
+}
+
+.severity--mild {
+  background: var(--go-50);
+  border-color: var(--go-600);
+  color: var(--go-800);
+}
+
+/* --- Site header -------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--white);
+  border-bottom: var(--rule-strong);
+}
+
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 10px 16px;
+}
+
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* A plain red cross reads at 32px, prints, and needs no emoji font */
+.site-header__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--alert-600);
+  flex-shrink: 0;
+}
+
+.site-header__mark svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--white);
+}
+
+.site-header__name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.site-header__tag {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ink-500);
+}
+
+@media (max-width: 30rem) {
+  .site-header__words { display: none; }
+}
+
+/*
+  The 112 button never leaves the screen. In an emergency this is the one
+  control that must be reachable from any page at any scroll position.
+*/
+.site-header__call {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 10px 16px;
+  border: 2px solid var(--alert-700);
+  border-radius: var(--radius);
+  background: var(--alert-600);
+  color: var(--white);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.site-header__call:hover { background: var(--alert-700); }
+.site-header__call svg { fill: var(--white); }
+
+.lang-switch {
+  display: flex;
+  border: 2px solid var(--ink-300);
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.lang-switch button {
+  padding: 8px 10px;
+  background: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink-600);
+}
+
+.lang-switch button:hover { background: var(--ink-100); }
+
+.lang-switch button[aria-pressed="true"] {
+  background: var(--ink-900);
+  color: var(--white);
+}
+
+/* Scrollable on small screens, so a phone has navigation at all */
+.site-nav {
+  border-top: var(--rule);
+  background: var(--paper);
+}
+
+.site-nav__inner {
+  display: flex;
+  gap: 4px;
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 0 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.site-nav__inner::-webkit-scrollbar { display: none; }
+
+.site-nav a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 3px solid transparent;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-600);
+  white-space: nowrap;
+}
+
+.site-nav a:hover { color: var(--ink-900); }
+
+.site-nav a[aria-current="page"] {
+  border-bottom-color: var(--alert-600);
+  color: var(--alert-700);
+}
+
+/* --- Site footer -------------------------------------------- */
+.site-footer {
+  margin-top: auto;
+  border-top: var(--rule-strong);
+  background: var(--white);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: var(--mid);
+  margin: 0 auto;
+  padding: 20px 16px;
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.site-footer a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.site-footer__call {
+  font-weight: 700;
+  color: var(--alert-700);
+}
+
+/* --- Offline bar -------------------------------------------- */
+.offline-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--warn-600);
+  color: var(--white);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* --- Loading ------------------------------------------------ */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.loading--full {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--paper);
+}
+
+.loading__spinner {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  color: var(--alert-600);
+  animation: spin 0.9s linear infinite;
+}
+
+.loading__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.loading__note {
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  color: var(--ink-500);
+}
+
+/* --- Voice input -------------------------------------------- */
+.voice-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 16px 20px;
+  border: 2px solid var(--ink-900);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.voice-btn:hover { background: var(--ink-100); }
+
+.voice-btn.is-listening {
+  background: var(--alert-600);
+  border-color: var(--alert-700);
+  color: var(--white);
+}
+
+.voice-btn__error {
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--alert-700);
+}
+
+/* --- Step card ---------------------------------------------- */
+/*
+  Step text is the largest type in the app on purpose: it is read at arm's
+  length by someone holding a phone in one hand and helping with the other.
+*/
+.step {
+  border: 2px solid var(--ink-900);
+  border-radius: var(--radius);
+  background: var(--white);
+  overflow: hidden;
+}
+
+.step.is-done {
+  border-color: var(--go-600);
+  background: var(--go-50);
+}
+
+.step__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 16px;
+  background: var(--ink-900);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.step.is-done .step__head { background: var(--go-600); }
+
+.step__done {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.step__text {
+  padding: 24px 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+@media (min-width: 40rem) {
+  .step__text { font-size: 1.75rem; }
+}
+
+/* --- Category card ------------------------------------------ */
+.category {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  border: 2px solid var(--ink-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  text-align: left;
+}
+
+.category:hover { border-color: var(--ink-900); }
+
+/* Pictograms carry meaning for people who skim rather than read */
+.category__icon {
+  font-size: 2.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.category__body { flex: 1; min-width: 0; }
+
+.category__name {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.category__desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+/* --- Facility card ------------------------------------------ */
+.facility {
+  border: 2px solid var(--ink-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  overflow: hidden;
+}
+
+.facility__body { padding: 16px; }
+
+.facility__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.facility__name {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* Distance is the fact that decides where you go, so it gets the size */
+.facility__distance {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.facility__km {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.facility__unit {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+
+.facility__meta {
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  color: var(--ink-600);
+}
+
+.facility__tag {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 8px;
+  border-radius: var(--radius);
+  background: var(--alert-600);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.facility__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 2px solid var(--ink-200);
+}
+
+.facility__actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 8px;
+  font-weight: 700;
+}
+
+.facility__actions a:first-child {
+  border-right: 2px solid var(--ink-200);
+  color: var(--nav-600);
+}
+
+.facility__actions a:last-child { color: var(--alert-700); }
+.facility__actions a:hover { background: var(--ink-100); }
+
+/* --- Video card --------------------------------------------- */
+.video {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 2px solid var(--ink-200);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.video:hover { border-color: var(--ink-900); }
+
+.video__play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background: var(--alert-600);
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.video__body { flex: 1; min-width: 0; }
+
+.video__title {
+  display: block;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.video__meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.875rem;
+  color: var(--ink-500);
+}
+
+/* --- Demo panel --------------------------------------------- */
+.demo {
+  border: 2px solid var(--ink-900);
+  border-radius: var(--radius);
+  background: var(--white);
+  overflow: hidden;
+}
+
+.demo__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--ink-900);
+  color: var(--white);
+  font-size: 0.875rem;
+}
+
+.demo__badge {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.demo__note { color: var(--ink-300); }
+.demo__body { padding: 16px; }
+
+.demo__lead {
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.demo__list {
+  display: grid;
+  gap: 8px;
+}
+
+@media (min-width: 40rem) {
+  .demo__list { grid-template-columns: 1fr 1fr; }
+}
+
+.demo__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border: 2px solid var(--ink-200);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  text-align: left;
+}
+
+.demo__item:hover { border-color: var(--ink-900); }
+
+.demo__item.is-active {
+  border-color: var(--alert-600);
+  background: var(--alert-50);
+}
+
+.demo__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
