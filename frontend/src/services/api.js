@@ -4,6 +4,7 @@
  */
 
 import { getOfflineCategory } from '../data/offlineFirstAid';
+import { getVideosForCategory } from '../data/emergencyVideos';
 
 const API_BASE = '/api';
 
@@ -15,7 +16,7 @@ export async function analyzeSymptoms(description, isDemo = false) {
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
 
     const response = await fetch(`${API_BASE}/emergency/analyze`, {
       method: 'POST',
@@ -66,56 +67,60 @@ export async function fetchCategoryDetails(id) {
           label: cat.severity.toUpperCase(),
           color: cat.severity === 'critical' ? 'red' : 'orange'
         },
-        videos: []
+        videos: getVideosForCategory(id)
       }
     };
   }
 }
 
-export async function fetchNearbyFacilities(lat, lng, radius = 10000) {
+export async function fetchNearbyFacilities(lat, lng, radius = 15000) {
+  /*
+    Overpass is free and heavily loaded; a real query against it takes
+    20-40 seconds. The old 12s abort meant this never once succeeded.
+  */
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 60000);
+
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 12000);
+    const res = await fetch(
+      `${API_BASE}/facilities/nearby?lat=${lat}&lng=${lng}&radius=${radius}`,
+      { signal: controller.signal }
+    );
 
-    const res = await fetch(`${API_BASE}/facilities/nearby?lat=${lat}&lng=${lng}&radius=${radius}`, {
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
+    const body = await res.json().catch(() => ({}));
 
-    if (!res.ok) throw new Error('Failed to fetch facilities');
-    return await res.json();
+    if (!res.ok) {
+      const err = new Error(body.error || `Server returned ${res.status}`);
+      err.code = body.code || 'SERVER_ERROR';
+      throw err;
+    }
+
+    return body;
   } catch (err) {
-    console.error('[API Service] Nearby facilities error:', err.message);
+    if (err.name === 'AbortError') {
+      const timeout = new Error('The map service did not respond in time.');
+      timeout.code = 'TIMEOUT';
+      throw timeout;
+    }
     throw err;
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
 export async function fetchDashboardStats() {
   try {
     const res = await fetch(`${API_BASE}/dashboard/stats`);
-    if (!res.ok) throw new Error('Failed to fetch stats');
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
     return await res.json();
-  } catch {
-    return {
-      success: true,
-      stats: {
-        totalSessions: 142,
-        demoSessions: 28,
-        realSessions: 114,
-        last24Hours: 18,
-        last7Days: 89,
-        categoryDistribution: { chest_pain: 34, severe_bleeding: 29, breathing_difficulty: 25, burns: 16, snake_bite: 12, unconsciousness: 10 },
-        severityDistribution: { critical: 88, urgent: 42, less_urgent: 12 },
-        topCategories: [
-          { category: 'chest_pain', count: 34 },
-          { category: 'severe_bleeding', count: 29 },
-          { category: 'breathing_difficulty', count: 25 },
-          { category: 'burns', count: 16 },
-          { category: 'snake_bite', count: 12 }
-        ],
-        systemStatus: { database: 'in-memory', ai: 'active', uptime: 3600 }
-      }
-    };
+  } catch (err) {
+    /*
+      No invented numbers here. This screen reports how much the service is
+      actually being used; filling it with plausible-looking figures when the
+      server is down makes it worse than useless.
+    */
+    console.warn('[API Service] Dashboard stats unavailable:', err.message);
+    return { success: false, error: 'unavailable' };
   }
 }
 
@@ -173,7 +178,7 @@ function getOfflineAnalysis(text) {
       warningsHi: category.warningsHi,
       doNots: category.doNots
     },
-    videos: [],
+    videos: getVideosForCategory(categoryId),
     safety: {
       disclaimer: 'This information is for emergency first-aid support only. It does not replace a doctor or emergency medical service.',
       disclaimerHi: 'यह जानकारी केवल आपातकालीन प्राथमिक चिकित्सा सहायता के लिए है। यह डॉक्टर या आपातकालीन चिकित्सा सेवा का विकल्प नहीं है।',
@@ -182,7 +187,7 @@ function getOfflineAnalysis(text) {
     },
     meta: {
       source: 'offline_client_engine',
-      confidence: 0.95
+      confidence: 0.6
     }
   };
 }

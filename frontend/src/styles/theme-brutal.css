@@ -477,3 +477,13 @@
 [data-theme="brutal"] .is-pulsing {
   animation: brutal-throb 2.4s ease-in-out infinite;
 }
+
+[data-theme="brutal"] .finder__blank {
+  border: 3px dashed var(--b-black);
+}
+
+[data-theme="brutal"] .finder__blank--error {
+  border-style: solid;
+  background: var(--alert-50);
+  box-shadow: var(--hard);
+}

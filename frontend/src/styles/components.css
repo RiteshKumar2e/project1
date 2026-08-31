@@ -236,21 +236,23 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  background: var(--white);
-  border-bottom: var(--rule-strong);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  width: 100%;
 }
 
 .site-header__bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--s4);
+  width: 100%;
   max-width: var(--wide);
   margin: 0 auto;
-  padding: var(--s3) var(--s4);
-}
-
-@media (min-width: 40rem) {
-  .site-header__bar { padding: var(--s4) var(--s5); }
+  padding: var(--s3) var(--s5);
 }
 
 .site-header__brand {
@@ -258,98 +260,118 @@
   align-items: center;
   gap: var(--s3);
   flex-shrink: 0;
+  text-decoration: none;
 }
 
-/* A plain red cross reads at 32px, prints, and needs no emoji font */
 .site-header__mark {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--alert-600);
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #c0322b 0%, #8b1611 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(192, 50, 43, 0.3);
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
-.site-header__mark svg {
-  width: 24px;
-  height: 24px;
-  fill: var(--white);
+.site-header__brand:hover .site-header__mark {
+  transform: scale(1.05);
 }
 
 .site-header__name {
   display: block;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--ink-900);
+  letter-spacing: -0.02em;
 }
 
 .site-header__tag {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--ink-500);
+  font-weight: 600;
+  margin-top: 1px;
 }
 
-@media (max-width: 30rem) {
-  .site-header__words { display: none; }
+@media (max-width: 32rem) {
+  .site-header__tag { display: none; }
 }
 
-/*
-  The 112 button never leaves the screen. In an emergency this is the one
-  control that must be reachable from any page at any scroll position.
-*/
-.site-header__call {
+/* Top-Right aligned container for Call 112 & Language Switcher */
+.site-header__right {
   display: flex;
   align-items: center;
-  gap: var(--s2);
+  gap: var(--s3);
   margin-left: auto;
-  padding: var(--s3) var(--s4);
-  border: 2px solid var(--alert-700);
-  border-radius: var(--radius);
-  background: var(--alert-600);
-  color: var(--white);
-  font-weight: 700;
-  flex-shrink: 0;
 }
 
-.site-header__call:hover { background: var(--alert-700); }
-.site-header__call svg { fill: var(--white); }
+.site-header__call {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s2) var(--s4);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #c0322b 0%, #a81f19 100%);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 14px rgba(192, 50, 43, 0.35);
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.site-header__call:hover {
+  background: linear-gradient(135deg, #a81f19 0%, #8b1611 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(192, 50, 43, 0.45);
+}
 
 .lang-switch {
   display: flex;
-  border: 2px solid var(--ink-300);
-  border-radius: var(--radius);
+  align-items: center;
+  border: 1.5px solid var(--ink-300);
+  border-radius: 20px;
   overflow: hidden;
   flex-shrink: 0;
+  background: var(--ink-100);
+  padding: 2px;
 }
 
 .lang-switch button {
-  padding: var(--s2) 10px;
-  background: var(--white);
-  font-size: 0.875rem;
-  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 16px;
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 800;
   color: var(--ink-600);
+  transition: all 0.15s ease;
+  cursor: pointer;
 }
 
-.lang-switch button:hover { background: var(--ink-100); }
+.lang-switch button:hover { color: var(--ink-900); }
 
 .lang-switch button[aria-pressed="true"] {
   background: var(--ink-900);
   color: var(--white);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Scrollable on small screens, so a phone has navigation at all */
 .site-nav {
-  border-top: var(--rule);
-  background: var(--paper);
+  border-top: 1px solid var(--ink-100);
+  background: #fafafa;
 }
 
 .site-nav__inner {
   display: flex;
-  gap: var(--s1);
+  gap: var(--s2);
   max-width: var(--wide);
   margin: 0 auto;
-  padding: 0 var(--s4);
+  padding: var(--s1) var(--s4);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -360,19 +382,25 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: var(--s3) var(--s4);
-  border-bottom: 3px solid transparent;
-  font-size: 0.9375rem;
+  padding: var(--s2) var(--s4);
+  border-radius: 20px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--ink-600);
   white-space: nowrap;
+  transition: all 0.15s ease;
+  text-decoration: none;
 }
 
-.site-nav a:hover { color: var(--ink-900); }
+.site-nav a:hover {
+  color: var(--ink-900);
+  background: var(--ink-100);
+}
 
 .site-nav a[aria-current="page"] {
-  border-bottom-color: var(--alert-600);
+  background: var(--alert-50);
   color: var(--alert-700);
+  font-weight: 700;
 }
 
 /* --- Site footer -------------------------------------------- */
